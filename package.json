@@ -6,7 +6,10 @@
   "license": "Proprietary software",
   "private": true,
   "dependencies": {
-    "concurrently": "^8.0.1"
+    "axios": "^1.4.0",
+    "concurrently": "^8.0.1",
+    "knex": "^2.4.2",
+    "mysql": "^2.18.1"
   },
   "scripts": {
     "frontend": "(cd ./packages/frontend && yarn run start)",

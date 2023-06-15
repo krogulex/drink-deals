@@ -6,10 +6,13 @@
   "license": "Proprietary software",
   "private": true,
   "dependencies": {
+    "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "express-generator": "^4.16.1",
     "knex": "^2.4.2",
-    "mysql2": "^3.3.2",
-    "nodemon": "^2.0.22"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.3.5",
+    "nodemon": "^2.0.22",
+    "objection": "^3.0.1"
   }
 }
