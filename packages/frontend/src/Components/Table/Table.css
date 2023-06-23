@@ -1,0 +1,30 @@
+.table {
+  background: #fff;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  padding-bottom: 10px;
+
+}
+  .heading {
+    padding: 20px;
+    text-align: left;
+    font-size: 15pt;
+    color: #272625;
+    border-radius: 8px;
+    text-transform: capitalize;
+    background-color: aliceblue;
+  }
+  .promotion-list {
+    list-style: none;
+  }
+
+  .promotion-element:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 5px dotted rgb(181, 181, 181);
+  }

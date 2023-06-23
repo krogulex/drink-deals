@@ -1,10 +1,10 @@
 
-import logo from "../../images"
+import logo from "../../images/logo.png"
 const Header = () => {
 
 return (
     <header>
-        <img src="../../images/logo.png" alt="Logo"></img>
+        <img src={logo} alt="Logo"></img>
     </header>
 )
 }

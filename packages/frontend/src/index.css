@@ -11,9 +11,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--accent-color);
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/*import css */
+@import "./Components/Header/Header.css";
+@import "./Components/Promotions/Promotions.css";
+@import "./Components/Home/Home.css";
+@import "./Components/Table/Table.css";
+@import "./Components/Form/Form.css"
