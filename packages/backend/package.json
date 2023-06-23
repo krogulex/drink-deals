@@ -6,6 +6,7 @@
   "license": "Proprietary software",
   "private": true,
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "express-generator": "^4.16.1",

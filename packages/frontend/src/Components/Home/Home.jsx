@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { fetchPromotionsData } from "../services/fetchApi";
+import { fetchPromotionsData } from "../../services/fetchApi";
 
 const Home = () => {
   const [promotionsData, setPromotionsData] = useState(null);
@@ -27,7 +27,7 @@ const Home = () => {
       {promotionsData && (
         <ul>
           {promotionsData.map((el) => (
-            <li key={el.id}>{el.name}, {el.place}</li>
+            <li key={el._id}>{el.name}, {el.place}</li>
           ))}
         </ul>
       )}
