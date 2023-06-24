@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/drink-deals/static/css/main.679fa7d6.css",
+    "main.js": "/drink-deals/static/js/main.178cd596.js",
+    "static/js/787.04051c1e.chunk.js": "/drink-deals/static/js/787.04051c1e.chunk.js",
+    "static/media/logo.png": "/drink-deals/static/media/logo.8ede9c5a9e71aa9d2be2.png",
+    "static/media/logo.svg": "/drink-deals/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/drink-deals/index.html",
+    "main.679fa7d6.css.map": "/drink-deals/static/css/main.679fa7d6.css.map",
+    "main.178cd596.js.map": "/drink-deals/static/js/main.178cd596.js.map",
+    "787.04051c1e.chunk.js.map": "/drink-deals/static/js/787.04051c1e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.679fa7d6.css",
+    "static/js/main.178cd596.js"
+  ]
+}
