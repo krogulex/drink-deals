@@ -35,6 +35,46 @@ const Form = () => {
           <Grid xs={12} item>
             <TextField id="price" name="price" label="Cena" />
           </Grid>
+          <Grid>
+            <Checkbox label="beer"></Checkbox>Piwo
+          </Grid>
+          <Grid>
+            <Checkbox label="aperol"></Checkbox>Aperol
+          </Grid>
+          <Grid>
+            <Checkbox label="gin"></Checkbox>Gin
+          </Grid>
+          <Grid>
+            <Checkbox label="vodka"></Checkbox>Wódka
+          </Grid>
+          <Grid>
+            <Checkbox label="Sunday"></Checkbox>Niedziela
+          </Grid>
+          <Grid>
+            <Checkbox label="Sunday"></Checkbox>Niedziela
+          </Grid>
+          <Grid>
+            <Checkbox label="Monday"></Checkbox>Poniedziałek
+          </Grid>
+          <Grid>
+            <Checkbox label="Teusday"></Checkbox>Wtorek
+          </Grid>
+          <Grid>
+            <Checkbox label="Wendsday"></Checkbox>Środa
+          </Grid>
+          <Grid>
+            <Checkbox label="Thursday"></Checkbox>Czwartek
+          </Grid>
+          <Grid>
+            <Checkbox label="Friday"></Checkbox>Piątek
+          </Grid>
+          <Grid>
+            <Checkbox label="Saturday"></Checkbox>Sobota
+          </Grid>
+          <Grid>
+            <Checkbox label="Sunday"></Checkbox>Niedziela
+          </Grid>
+
           <Grid xs={12} item>
             <Checkbox
               label="Cały dzień"
