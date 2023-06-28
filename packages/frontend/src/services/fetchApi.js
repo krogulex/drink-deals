@@ -8,8 +8,7 @@ const api = axios.create({
 
 export const fetchPromotionsData = async () => {
   try {
-    const response = await api.get('/');
-    console.log(response)
+    const response = await api.get('/promotions');
     return response.data;
   } catch (error) {
     console.error('Error fetching user data:', error);

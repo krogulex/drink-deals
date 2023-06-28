@@ -21,8 +21,6 @@ const Home = () => {
     fetchPromotions();
   }, []);
 
-  console.log(promotionsData);
-
   return (
     <div>
       <Table promotionsData={promotionsData}></Table>

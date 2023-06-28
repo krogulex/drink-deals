@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const mysql = require("mysql");
 
@@ -7,16 +8,22 @@ const utils = require("./utils");
 
 const cors = require('cors');
 
-
 const Promotion = require("./database/models/Promotion");
 
 const app = express();
 
 app.use(cors());
 
+app.use(cors({
+  origin: "http://localhost:3000",
+}));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use("/storage", express.static("storage/public"));
 
-app.get("/", async (req, res) => {
+app.get("/promotions", async (req, res) => {
   try {
     const promotions = await Promotion.query();
     console.log(promotions);
@@ -25,6 +32,37 @@ app.get("/", async (req, res) => {
     console.log(error);
   }
 });
+
+app.post("/promotions", async (req, res) => {
+  try {
+    console.log(req.body)
+    // Extract the promotion data from the request body
+    const { name, place, price, allDay, allWeek, startHours, endHours, description, category, day, link, image } = req.body;
+
+    // Create a new promotion record using Knex
+    const newPromotion = await Promotion.query().insert({
+      name,
+      place,
+      price,
+      allDay,
+      allWeek,
+      startHours,
+      endHours,
+      description,
+      category,
+      day,
+      link,
+      image
+    });
+
+    res.status(201).json(newPromotion);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred while creating the promotion." });
+  }
+});
+
+
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

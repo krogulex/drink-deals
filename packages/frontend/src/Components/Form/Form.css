@@ -1,22 +1,26 @@
 .form-header {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 .form {
-    background: #fff;
-    width: 100%;
-    height: auto;
-    display: flex;
-    border-radius: 8px;
-    padding-bottom: 10px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 20px;
+  background: #fff;
+  width: 100%;
+  height: auto;
+  display: flex;
+  border-radius: 8px;
+  padding-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+  margin-bottom: 50px;
 }
 .form .MuiTextField-root {
-    width: 90%;
-    margin-bottom: 10px;
-  }
-  .time-field-left {
-    margin-left: 45px;
-  }
+  width: 90%;
+  margin-bottom: 10px;
+}
+.time-field-left {
+  margin-left: 45px;
+}
+.proof {
+  margin-bottom: 20px;
+}
