@@ -9,6 +9,7 @@ const utils = require("./utils");
 const cors = require('cors');
 
 const Promotion = require("./database/models/Promotion");
+const { all } = require("axios");
 
 const app = express();
 
@@ -41,18 +42,18 @@ app.post("/promotions", async (req, res) => {
 
     // Create a new promotion record using Knex
     const newPromotion = await Promotion.query().insert({
-      name,
-      place,
-      price,
-      allDay,
-      allWeek,
-      startHours,
-      endHours,
-      description,
-      category,
-      day,
-      link,
-      image
+      name: name,
+      place: place,
+      price: price,
+      allDay: allDay,
+      allWeek: allWeek,
+      startHours: startHours,
+      endHours: endHours,
+      description: description,
+      category: JSON.stringify(category),
+      day: JSON.stringify(day),
+      link: link,
+      image: image,
     });
 
     res.status(201).json(newPromotion);

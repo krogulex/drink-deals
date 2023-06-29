@@ -14,10 +14,11 @@ exports.up = async function(knex) {
         table.string('startHours')
         table.string('endHours')
         table.string('description')
-        table.string('category')
-        table.string('day')
+        table.jsonb('category').notNullable();
+        table.jsonb('day').notNullable();
         table.string('link')
         table.string('image')
+        table.string('googleMaps');
         table.timestamps(false, true)
       });
 };

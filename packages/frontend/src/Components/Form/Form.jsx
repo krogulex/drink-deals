@@ -20,10 +20,12 @@ const Form = () => {
 
   const handleIsAllDay = (event) => {
     setIsAllDay(event.target.checked);
+    formik.values.allDay = event.target.checked;
   };
 
   const handleIsAllWeek = (event) => {
     setIsAllWeek(event.target.checked);
+    formik.values.allWeek = event.target.checked;
   };
 
   const handleImageChange = (event) => {
@@ -67,22 +69,22 @@ const Form = () => {
     allWeek: Yup.boolean(),
     description: Yup.string(),
     category: Yup.array(),
-/*     startHours: Yup.string().when("allDay", (allDay, schema) => {
+    /*     startHours: Yup.string().when("allDay", (allDay, schema) => {
       if (allDay) {
         return schema.required("Start Hours are required");
       }
       return schema;
     }), */
     // Add more validation rules for other fields
-  }); 
+  });
 
   const formik = useFormik({
     initialValues: {
       name: "",
       place: "",
       price: "",
-      allDay: false,
-      allWeek: false,
+      allDay: isAllDay,
+      allWeek: isAllWeek,
       startHours: "",
       endHours: "",
       description: "",
@@ -90,23 +92,28 @@ const Form = () => {
       day: [],
       link: "",
       image: null,
+      googleMaps: "",
     },
     onSubmit: async (values, { resetForm }) => {
       // Submit form data
-      console.log(JSON.stringify(values));
+      console.log(values);
 
       try {
-        const response = await axios.post('http://localhost:8000/promotions', JSON.stringify(values), {
-          headers: {
-            'Content-Type': 'application/json'
+        const response = await axios.post(
+          "http://localhost:8000/promotions",
+          values,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
         resetForm({ values: "" });
       } catch (error) {
         console.error(error);
       }
     },
-    validationSchema: validationSchema
+    validationSchema: validationSchema,
   });
   return (
     <div>
@@ -136,35 +143,35 @@ const Form = () => {
         <h3>Kategoria:</h3>
         <div>
           <Checkbox
-          name="beer"
+            name="beer"
             label="beer"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("beer")}
           ></Checkbox>
           <span>Piwo</span>
           <Checkbox
-          name="aperol"
+            name="aperol"
             label="aperol"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("aperol")}
           ></Checkbox>{" "}
           <span>Aperol</span>
           <Checkbox
-          name="gin"
+            name="gin"
             label="gin"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("gin")}
           ></Checkbox>
           <span>Gin</span>
           <Checkbox
-          name="vodka"
+            name="vodka"
             label="vodka"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("vodka")}
           ></Checkbox>
           <span>Wódka</span>
           <Checkbox
-          name="other"
+            name="other"
             label="other"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("other")}
@@ -267,6 +274,13 @@ const Form = () => {
           value={formik.values.description}
           onChange={formik.handleChange}
         />
+        <TextField
+          id="googleMaps"
+          name="googleMaps"
+          label="Link do map googla"
+          value={formik.values.googleMaps}
+          onChange={formik.handleChange}
+        />
         <div className="proof">
           <h3>Dowód promocji w postaci linku lub zdjęcia:</h3>
           <TextField
@@ -281,7 +295,7 @@ const Form = () => {
             id="image"
             name="image"
             accept="image/*"
-/*             value={formik.values.image} */
+            /*             value={formik.values.image} */
             onChange={handleImageChange}
           />
         </div>
