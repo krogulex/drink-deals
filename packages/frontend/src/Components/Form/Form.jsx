@@ -308,3 +308,4 @@ const Form = () => {
 };
 
 export default Form;
+// walidaxcjas ,moze działać sama, tzn po liknieciu all day po prostu wyzerować te godziny0
