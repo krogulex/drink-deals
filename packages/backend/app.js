@@ -23,7 +23,12 @@ app.use("/storage", express.static("storage/public"));
 app.get("/promotions", async (req, res) => {
   try {
     const promotions = await Promotion.query();
-    console.log(promotions);
+    promotions.map((promotion) => {
+      promotion.day = JSON.parse(promotion.day)
+    })
+    promotions.map((promotion) => {
+      promotion.category = JSON.parse(promotion.category)
+    })
     res.json(promotions)
   } catch (error) {
     console.log(error);

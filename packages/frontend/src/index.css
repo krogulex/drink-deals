@@ -1,8 +1,9 @@
 :root {
-  --primary-color: #E384FF;  /* Red */
-  --secondary-color: #865DFF;  /* Green */
+  --primary-color: #E384FF;
+  --secondary-color: #865DFF;  
   --accent-color: #191825;
-  --fourth-color: #FFA3FD;  /* Blue */
+  --fourth-color: #FFA3FD;
+  --fifth-color: #28254c ;
 }
 body {
   margin: 0;

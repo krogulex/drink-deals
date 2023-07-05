@@ -157,6 +157,13 @@ const Form = () => {
           ></Checkbox>{" "}
           <span>Aperol</span>
           <Checkbox
+            name="whisky"
+            label="whisky"
+            onChange={handleCategoryChange}
+            checked={formik.values.category.includes("whisky")}
+          ></Checkbox>
+          <span>Whisky</span>
+          <Checkbox
             name="gin"
             label="gin"
             onChange={handleCategoryChange}
@@ -170,6 +177,42 @@ const Form = () => {
             checked={formik.values.category.includes("vodka")}
           ></Checkbox>
           <span>Wódka</span>
+          <Checkbox
+            name="prosecco"
+            label="prosecco"
+            onChange={handleCategoryChange}
+            checked={formik.values.category.includes("prosecco")}
+          ></Checkbox>     <span>Prosecco</span>
+                   <Checkbox
+            name="martini"
+            label="martini"
+            onChange={handleCategoryChange}
+            checked={formik.values.category.includes("martini")}
+            
+          ></Checkbox>
+     
+          <span>Martini</span>
+          <Checkbox
+            name="wine"
+            label="wine"
+            onChange={handleCategoryChange}
+            checked={formik.values.category.includes("wine")}
+          ></Checkbox>
+          <span>Wino</span>
+          <Checkbox
+            name="rum"
+            label="rum"
+            onChange={handleCategoryChange}
+            checked={formik.values.category.includes("rum")}
+          ></Checkbox>
+          <span>Rum</span>
+          <Checkbox
+            name="tequila"
+            label="tequila"
+            onChange={handleCategoryChange}
+            checked={formik.values.category.includes("tequila")}
+          ></Checkbox>
+          <span>Tequila</span>
           <Checkbox
             name="other"
             label="other"

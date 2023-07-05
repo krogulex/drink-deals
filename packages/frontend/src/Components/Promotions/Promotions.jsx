@@ -6,6 +6,7 @@ import Table from "../Table/Table";
 
 const Home = () => {
   const [promotionsData, setPromotionsData] = useState(null);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     const fetchPromotions = () => {
@@ -21,9 +22,11 @@ const Home = () => {
     fetchPromotions();
   }, []);
 
+  console.log(promotionsData)
+
   return (
     <div>
-      <Table promotionsData={promotionsData}></Table>
+      <Table promotionsData={promotionsData} date={date}></Table>
     </div>
   );
 };
