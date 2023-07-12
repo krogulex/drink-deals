@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import liquorBottlesImage from "../../images/liquor-bottles.jpg";
 import aperolImage from "../../images/aperol.jpg";
@@ -26,15 +27,32 @@ const categoryImages = {
   wine: wineImage,
 };
 
-const Table = ({ promotionsData, date }) => {
-  console.log(date)
+const Table = ({ promotionsData, date, day }) => {
+  const [filteredPromotions, setFilteredPromotions] = useState([]);
+
+  useEffect(() => {
+    if (promotionsData) {
+      const filteredData = promotionsData.filter((el) => el.day.includes(day));
+      setFilteredPromotions(filteredData);
+    }
+  }, [promotionsData, day]);
+
   return (
     <div className="table">
-      <h2 className="heading">dzisiaj</h2>
+      <h2 className="heading">{date}</h2>
       {promotionsData && (
-        <ul className="promotion-list">
-          {promotionsData.map((el) => (
-            <li key={el.id} className="promotion-element">
+        <Swiper
+          slidesPerView={"auto"}
+          centeredSlides={true}
+          spaceBetween={17}
+          grabCursor={true}
+          pagination={{
+            clickable: true,
+          }}
+          className="mySwiper"
+        >
+          {filteredPromotions.map((el) => (
+            <SwiperSlide key={el.id} className="promotion-element">
               {el.category.length === 0 ||
               el.category.includes("other") ||
               el.category.length >= 2 ? (
@@ -51,37 +69,42 @@ const Table = ({ promotionsData, date }) => {
                 />
               ) : null}
               <div className="promotion-div">
-                <h3>     {el.name} - {el.place}</h3>
-              <div className="promotion-info">
-                <div className="promotion-left">
-                <h3>Cena: {el.price} zł</h3>
-                <p>
-                  Godziny:
-                  {el.allDay === 1 || el.startHours === ""
-                    ? " Cały dzień"
-                    : ` ${el.startHours} - ${el.endHours}`}
-                </p>
+                <h3>
+                  {el.name} - {el.place}
+                </h3>
+                <div className="promotion-info">
+                  <div className="promotion-left">
+                    <h3>Cena: {el.price} zł</h3>
+                    <p>
+                      Godziny:
+                      {el.allDay === 1 || el.startHours === ""
+                        ? " Cały dzień"
+                        : ` ${el.startHours} - ${el.endHours}`}
+                    </p>
+                  </div>
+                  <div className="promotion-right">
+                    <a href={el.googleMap}>
+                      <button className="promotion-button navigation-button">
+                        Nawiguj
+                      </button>
+                    </a>
+                    <a href={el.link}>
+                      <button className="promotion-button">Strona</button>
+                    </a>
+                  </div>
+                </div>
+
+                {el.description === "" ? (
+                  <p className="additional-info">Dodatkowe informacje: brak</p>
+                ) : (
+                  <p className="additional-info">
+                    Dodatkowe informacje: {el.description}
+                  </p>
+                )}
               </div>
-              <div className="promotion-right">
-                <a href={el.googleMap}>
-                  <button className="promotion-button">Nawiguj</button>
-                </a>
-                <a href={el.link}>
-                  <button className="promotion-button">Strona</button>
-                </a>
-              </div>
-              </div>
-              
-              {el.description === "" ? (
-                ""
-              ) : (
-                <p className="additional-info">Dodatkowe informacje: {el.description}</p>
-              )}
-              </div>
-              
-            </li>
+            </SwiperSlide>
           ))}
-        </ul>
+        </Swiper>
       )}
     </div>
   );
