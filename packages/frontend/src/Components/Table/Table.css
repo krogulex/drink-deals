@@ -29,10 +29,6 @@
   border-radius: 10px;
 }
 
-.promotion-element:not(:last-child) {
-  margin-bottom: 20px;
-}
-
 .additional-info::before {
   content: "";
   display: block;
@@ -69,7 +65,7 @@
 }
 
 .navigation-button {
- margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .promotion-button {
@@ -106,4 +102,13 @@
 
 .promotion-button:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.swiper-horizontal > .swiper-scrollbar {
+  position: relative !important;
+}
+
+.swiper .swiper-scrollbar {
+  margin-top: 15px;
+  background: var(--primary-color);
 }

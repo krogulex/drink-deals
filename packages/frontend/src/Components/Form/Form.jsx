@@ -9,14 +9,42 @@ import {
   TextField,
   FormControl,
   Checkbox,
-  Grid,
 } from "@mui/material";
 
 import axios from "axios";
 
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiOutlinedInput-input": {
+      color: "#fff", // Replace with your desired color
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#fff", // Replace with your desired color
+    },
+    "& .MuiInputLabel-root": {
+      color: "#fff", // Replace with your desired color
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#E384FF", // Replace with your desired color
+      },
+      "&:hover fieldset": {
+        borderColor: "#E384FF", // Replace with your desired color
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#E384FF", // Replace with your desired color
+      },
+    },
+  },
+}));
+
 const Form = () => {
   const [isAllDay, setIsAllDay] = useState(false);
   const [isAllWeek, setIsAllWeek] = useState(false);
+
+  const classes = useStyles();
 
   const handleIsAllDay = (event) => {
     setIsAllDay(event.target.checked);
@@ -93,6 +121,7 @@ const Form = () => {
       link: "",
       image: null,
       googleMaps: "",
+      website: ""
     },
     onSubmit: async (values, { resetForm }) => {
       // Submit form data
@@ -125,6 +154,7 @@ const Form = () => {
           label="Nazwa promocji"
           value={formik.values.name}
           onChange={formik.handleChange}
+          className={classes.root}
         />
         <TextField
           id="place"
@@ -132,16 +162,28 @@ const Form = () => {
           label="Miejsce"
           value={formik.values.place}
           onChange={formik.handleChange}
+          className={classes.root}
         />
         <TextField
           id="price"
           name="price"
           label="Cena"
           value={formik.values.price}
-          onChange={formik.handleChange}
+          onChange={(e) => {
+            const input = e.target.value;
+            const regex = /^\d*$/; // Regular expression to match digits only
+
+            if (regex.test(input)) {
+              formik.handleChange(e);
+            }
+          }}
+          InputProps={{
+            endAdornment: <p>zł</p>,
+          }}
+          className={`${classes.root} price`}
         />
         <h3>Kategoria:</h3>
-        <div>
+        <div className="category">
           <Checkbox
             name="beer"
             label="beer"
@@ -182,15 +224,14 @@ const Form = () => {
             label="prosecco"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("prosecco")}
-          ></Checkbox>     <span>Prosecco</span>
-                   <Checkbox
+          ></Checkbox>{" "}
+          <span>Prosecco</span>
+          <Checkbox
             name="martini"
             label="martini"
             onChange={handleCategoryChange}
             checked={formik.values.category.includes("martini")}
-            
           ></Checkbox>
-     
           <span>Martini</span>
           <Checkbox
             name="wine"
@@ -221,8 +262,8 @@ const Form = () => {
           ></Checkbox>
           <span>Inne</span>
         </div>
-        <div>
-          <h3>Dzień promocji:</h3>{" "}
+        <h3>Dzień promocji:</h3>
+        <div className="promotion-day">
           <Checkbox
             id="isAllWeek"
             name="isAllWeek"
@@ -281,8 +322,8 @@ const Form = () => {
           />
           <span> Niedziela</span>
         </div>
-        <div>
-          <h3>Godziny promocji:</h3>
+        <h3>Godziny promocji:</h3>
+        <div className="all-day">
           <Checkbox
             id="isAllDay"
             name="isAllDay"
@@ -292,13 +333,21 @@ const Form = () => {
           />
           <span>Cały dzień</span>
         </div>
-        <TextField
+        <div className="hours">
+          <TextField
           id="startHours"
           name="startHours"
           type="time"
           value={formik.values.startHours}
           disabled={isAllDay}
           onChange={formik.handleChange}
+          className={classes.root}
+          sx={{
+            '& input[type="time"]::-webkit-calendar-picker-indicator': {
+              filter:
+                "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
+            },
+          }}
         />
         <TextField
           id="endHours"
@@ -307,7 +356,17 @@ const Form = () => {
           value={formik.values.endHours}
           disabled={isAllDay}
           onChange={formik.handleChange}
+          className={classes.root}
+          sx={{
+            '& input[type="time"]::-webkit-calendar-picker-indicator': {
+              filter:
+                "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
+            },
+          }}
         />
+        </div>
+        
+            <h3>Dodatkowe informacje:</h3>
         <TextField
           id="description"
           name="description"
@@ -316,6 +375,7 @@ const Form = () => {
           rows={3}
           value={formik.values.description}
           onChange={formik.handleChange}
+          className={classes.root}
         />
         <TextField
           id="googleMaps"
@@ -323,15 +383,25 @@ const Form = () => {
           label="Link do map googla"
           value={formik.values.googleMaps}
           onChange={formik.handleChange}
+          className={classes.root}
         />
+                <TextField
+          id="website"
+          name="website"
+          label="Strona internetowa lokalu"
+          value={formik.values.website}
+          onChange={formik.handleChange}
+          className={classes.root}
+        />
+        <h3>Dowód promocji w postaci linku lub zdjęcia:</h3>
         <div className="proof">
-          <h3>Dowód promocji w postaci linku lub zdjęcia:</h3>
           <TextField
             id="link"
             name="link"
             label="link do promocji"
             value={formik.values.link}
             onChange={formik.handleChange}
+            className={classes.root}
           />
           <input
             type="file"

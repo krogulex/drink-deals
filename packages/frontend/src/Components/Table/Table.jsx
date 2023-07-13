@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from 'swiper/modules';
+import 'swiper/css/scrollbar';
+
 
 import liquorBottlesImage from "../../images/liquor-bottles.jpg";
 import aperolImage from "../../images/aperol.jpg";
@@ -46,9 +49,10 @@ const Table = ({ promotionsData, date, day }) => {
           centeredSlides={true}
           spaceBetween={17}
           grabCursor={true}
-          pagination={{
-            clickable: true,
+          scrollbar={{
+            hide: true,
           }}
+          modules={[Scrollbar]}
           className="mySwiper"
         >
           {filteredPromotions.map((el) => (

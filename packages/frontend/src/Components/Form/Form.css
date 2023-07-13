@@ -2,7 +2,8 @@
   color: var(--primary-color);
 }
 .form {
-  background: #fff;
+  background: var(--fifth-color);
+  color: #fff;
   width: 100%;
   height: auto;
   display: flex;
@@ -16,11 +17,62 @@
 }
 .form .MuiTextField-root {
   width: 90%;
-  margin-bottom: 10px;
-}
-.time-field-left {
-  margin-left: 45px;
+  margin-bottom: 15px;
 }
 .proof {
   margin-bottom: 20px;
+}
+.price {
+  max-width: 100px;
+}
+
+.form h3 {
+  margin-top: 10px;
+  width: 100%;
+  text-align: start;
+  padding-left: 30px;
+}
+
+.form h3::before {
+  content: "";
+  display: block;
+  width: 100%;
+  margin-left: -15px;
+  margin-right: auto;
+  margin-bottom: 10px;
+  border-bottom: 2px solid rgb(181, 181, 181);
+}
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.promotion-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.all-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form .hours  {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.form .hours .MuiTextField-root {
+width: 40%;
+padding-left: 15px;
+padding-right: 15px;
 }
