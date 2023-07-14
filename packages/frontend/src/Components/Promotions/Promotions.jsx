@@ -14,11 +14,12 @@ import { fetchPromotionsData } from "../../services/fetchApi";
 
 import Table from "../Table/Table";
 
-const Home = () => {
+const Promotions = () => {
   const [promotionsData, setPromotionsData] = useState(null);
   const [dates, setDates] = useState([]);
   const [days, setDays] = useState([]);
-  const [filter, setFilter] = useState([])
+  const [filter, setFilter] = useState([]);
+  const [filteredPromotions, setFilteredPromotions] = useState();
 
   useEffect(() => {
     // fetching promotion data
@@ -74,14 +75,33 @@ const Home = () => {
     setDays(formattedDays);
   }, []);
 
-  const handleCategoryChange = () => {
+  useEffect(() => {
+    if (filter.length === 0) {
+      return setFilteredPromotions(promotionsData);
+    }
 
-    //dodawaj do filtrów kolejno oraz zmien na chcked. Następnie wyfiltruj dawaną tablicę
-    setFilter((el) => {
-      console.log(el)
-    })
+    // Filter the promotionsData based on the filter array
+    const filteredPromotionsData = promotionsData.filter((item) =>
+    item.category.some((category) => filter.includes(category))
+  )
+    // Pass the filtered data to the Table component
+    setFilteredPromotions(filteredPromotionsData);
+  }, [promotionsData, filter]);
+
+  const handleCategoryChange = (event) => {
+    const categoryName = event.target.name;
+    const isChecked = event.target.checked;
+
+    setFilter((prevFilter) => {
+      if (isChecked) {
+        // If the checkbox is checked, add the category to the filter
+        return [...prevFilter, categoryName];
+      } else {
+        // If the checkbox is unchecked, remove the category from the filter
+        return prevFilter.filter((category) => category !== categoryName);
+      }
+    });
   };
-  console.log(filter);
   return (
     <div>
       <div className="filter">
@@ -91,77 +111,77 @@ const Home = () => {
             name="beer"
             label="beer"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("beer")}
           ></Checkbox>
           <span>Piwo</span>
           <Checkbox
             name="aperol"
             label="aperol"
             onChange={handleCategoryChange}
-            checked={false}
-          ></Checkbox>{" "}
+            checked={filter.includes("aperol")}
+          ></Checkbox>
           <span>Aperol</span>
           <Checkbox
             name="whisky"
             label="whisky"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("whisky")}
           ></Checkbox>
           <span>Whisky</span>
           <Checkbox
             name="gin"
             label="gin"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("gin")}
           ></Checkbox>
           <span>Gin</span>
           <Checkbox
             name="vodka"
             label="vodka"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("vodka")}
           ></Checkbox>
           <span>Wódka</span>
           <Checkbox
             name="prosecco"
             label="prosecco"
             onChange={handleCategoryChange}
-            checked={false}
-          ></Checkbox>{" "}
+            checked={filter.includes("prosecco")}
+          ></Checkbox>
           <span>Prosecco</span>
           <Checkbox
             name="martini"
             label="martini"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("martini")}
           ></Checkbox>
           <span>Martini</span>
           <Checkbox
             name="wine"
             label="wine"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("wine")}
           ></Checkbox>
           <span>Wino</span>
           <Checkbox
             name="rum"
             label="rum"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("rum")}
           ></Checkbox>
           <span>Rum</span>
           <Checkbox
             name="tequila"
             label="tequila"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("tequila")}
           ></Checkbox>
           <span>Tequila</span>
           <Checkbox
             name="other"
             label="other"
             onChange={handleCategoryChange}
-            checked={false}
+            checked={filter.includes("other")}
           ></Checkbox>
           <span>Inne</span>
         </div>
@@ -170,7 +190,7 @@ const Home = () => {
       {dates.map((date, index) => (
         <Table
           key={index}
-          promotionsData={promotionsData}
+          promotionsData={filteredPromotions}
           date={date}
           day={days[index]}
         />
@@ -179,4 +199,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Promotions;

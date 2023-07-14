@@ -14,12 +14,12 @@ const theme = createTheme({
     text: {
       primary: "#fff",
     },
-  }, 
+  },
   components: {
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: '#E384FF', // Replace with your desired color
+          color: "#E384FF",
         },
       },
     },
@@ -28,14 +28,14 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Home />
-      <Promotions />
-      <ThemeProvider theme={theme} >
-        <Form/>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Header />
+        <Home />
+        <Promotions />
+        <Form />
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from 'swiper/modules';
 import 'swiper/css/scrollbar';
+import { CircularProgress } from "@mui/material";
 
 
 import liquorBottlesImage from "../../images/liquor-bottles.jpg";
@@ -31,19 +32,27 @@ const categoryImages = {
 };
 
 const Table = ({ promotionsData, date, day }) => {
+
   const [filteredPromotions, setFilteredPromotions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (promotionsData) {
       const filteredData = promotionsData.filter((el) => el.day.includes(day));
       setFilteredPromotions(filteredData);
+      setLoading(false);
     }
   }, [promotionsData, day]);
+
+  console.log(filteredPromotions)
 
   return (
     <div className="table">
       <h2 className="heading">{date}</h2>
-      {promotionsData && (
+      {loading ? (
+      <CircularProgress /> // Display the spinner while loading is true
+    ) : (
+      promotionsData && (
         <Swiper
           slidesPerView={"auto"}
           centeredSlides={true}
@@ -54,7 +63,7 @@ const Table = ({ promotionsData, date, day }) => {
           }}
           modules={[Scrollbar]}
           className="mySwiper"
-        >
+        > {filteredPromotions.length === 0 && <div>Niestety w dniu dzisiejszym nie ma promek :( Dodaj swoją w formularzu!</div>}
           {filteredPromotions.map((el) => (
             <SwiperSlide key={el.id} className="promotion-element">
               {el.category.length === 0 ||
@@ -109,7 +118,7 @@ const Table = ({ promotionsData, date, day }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-      )}
+      ))}
     </div>
   );
 };
