@@ -28,13 +28,13 @@
   background-color: var(--fifth-color);
   border-radius: 10px;
 }
-
+.additional-info {
+ text-align: center;
+}
 .additional-info::before {
   content: "";
   display: block;
-  width: 106%;
-  margin-left: -10px;
-  margin-right: auto;
+  width: 100%;
   margin-bottom: 10px;
   border-bottom: 2px solid rgb(181, 181, 181);
 }
@@ -60,7 +60,7 @@
 .promotion-right {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -111,4 +111,32 @@
 .swiper .swiper-scrollbar {
   margin-top: 15px;
   background: var(--primary-color);
+}
+
+.swiper-slide {
+  margin-right: 0;
+  width: 85% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.none-promotions {
+  padding: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+  .table {
+    width: 960px;
+  }
+  .swiper-slide {
+    margin-right: 0;
+    width: 30% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

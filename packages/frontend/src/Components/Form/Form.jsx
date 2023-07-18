@@ -3,11 +3,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import {
   Button,
-  Select,
-  MenuItem,
-  InputLabel,
   TextField,
-  FormControl,
   Checkbox,
 } from "@mui/material";
 
@@ -54,10 +50,6 @@ const Form = () => {
   const handleIsAllWeek = (event) => {
     setIsAllWeek(event.target.checked);
     formik.values.allWeek = event.target.checked;
-  };
-
-  const handleImageChange = (event) => {
-    formik.setFieldValue("image", event.target.files[0]);
   };
 
   const handleCategoryChange = (event) => {
@@ -121,31 +113,50 @@ const Form = () => {
       link: "",
       image: null,
       googleMaps: "",
-      website: ""
+      website: "",
     },
     onSubmit: async (values, { resetForm }) => {
       // Submit form data
-      console.log(values);
-
       try {
+        const formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("place", values.place);
+        formData.append("price", values.price);
+        formData.append("allDay", values.allDay);
+        formData.append("allWeek", values.allWeek);
+        formData.append("startHours", values.startHours);
+        formData.append("endHours", values.endHours);
+        formData.append("description", values.description);
+        formData.append("category", JSON.stringify(values.category));
+        formData.append("day", JSON.stringify(values.day));
+        formData.append("link", values.link);
+        formData.append("image", values.image); // Append the image file to the formData
+        formData.append("googleMaps", values.googleMaps);
+        formData.append("website", values.website);
+
         const response = await axios.post(
           "http://localhost:8000/promotions",
-          values,
+          formData, // Send the formData as the data for the POST request
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data", // Set the content type to 'multipart/form-data'
             },
           }
         );
         resetForm({ values: "" });
+        setIsAllDay(false)
+        setIsAllWeek(false)
+
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
     },
     validationSchema: validationSchema,
   });
+
   return (
-    <div>
+    <div className="form-content">
       <h2 className="form-header">Dodaj swoją promocję!</h2>
       <form className="form" onSubmit={formik.handleSubmit}>
         <TextField
@@ -335,38 +346,38 @@ const Form = () => {
         </div>
         <div className="hours">
           <TextField
-          id="startHours"
-          name="startHours"
-          type="time"
-          value={formik.values.startHours}
-          disabled={isAllDay}
-          onChange={formik.handleChange}
-          className={classes.root}
-          sx={{
-            '& input[type="time"]::-webkit-calendar-picker-indicator': {
-              filter:
-                "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
-            },
-          }}
-        />
-        <TextField
-          id="endHours"
-          name="endHours"
-          type="time"
-          value={formik.values.endHours}
-          disabled={isAllDay}
-          onChange={formik.handleChange}
-          className={classes.root}
-          sx={{
-            '& input[type="time"]::-webkit-calendar-picker-indicator': {
-              filter:
-                "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
-            },
-          }}
-        />
+            id="startHours"
+            name="startHours"
+            type="time"
+            value={formik.values.startHours}
+            disabled={isAllDay}
+            onChange={formik.handleChange}
+            className={classes.root}
+            sx={{
+              '& input[type="time"]::-webkit-calendar-picker-indicator': {
+                filter:
+                  "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
+              },
+            }}
+          />
+          <TextField
+            id="endHours"
+            name="endHours"
+            type="time"
+            value={formik.values.endHours}
+            disabled={isAllDay}
+            onChange={formik.handleChange}
+            className={classes.root}
+            sx={{
+              '& input[type="time"]::-webkit-calendar-picker-indicator': {
+                filter:
+                  "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
+              },
+            }}
+          />
         </div>
-        
-            <h3>Dodatkowe informacje:</h3>
+
+        <h3>Dodatkowe informacje:</h3>
         <TextField
           id="description"
           name="description"
@@ -385,7 +396,7 @@ const Form = () => {
           onChange={formik.handleChange}
           className={classes.root}
         />
-                <TextField
+        <TextField
           id="website"
           name="website"
           label="Strona internetowa lokalu"
@@ -409,7 +420,9 @@ const Form = () => {
             name="image"
             accept="image/*"
             /*             value={formik.values.image} */
-            onChange={handleImageChange}
+            onChange={(e) =>
+              formik.setFieldValue("image", e.currentTarget.files[0])
+            }
           />
         </div>
         <Button variant="contained" type="submit">
@@ -421,4 +434,3 @@ const Form = () => {
 };
 
 export default Form;
-// walidaxcjas ,moze działać sama, tzn po liknieciu all day po prostu wyzerować te godziny0

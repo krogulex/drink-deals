@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "swiper/css";
 import {
-  Button,
-  Select,
-  MenuItem,
-  InputLabel,
-  TextField,
-  FormControl,
   Checkbox,
 } from "@mui/material";
 
@@ -103,7 +97,7 @@ const Promotions = () => {
     });
   };
   return (
-    <div>
+    <div className="promotions-content">
       <div className="filter">
         <h2>Wybierz swój ulubiony trunek!</h2>
         <div className="category">

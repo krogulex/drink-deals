@@ -44,8 +44,6 @@ const Table = ({ promotionsData, date, day }) => {
     }
   }, [promotionsData, day]);
 
-  console.log(filteredPromotions)
-
   return (
     <div className="table">
       <h2 className="heading">{date}</h2>
@@ -62,8 +60,16 @@ const Table = ({ promotionsData, date, day }) => {
             hide: true,
           }}
           modules={[Scrollbar]}
+          breakpoints={{
+            768: {
+              centeredSlides: false,
+            },
+            1024: {
+              centeredSlides: false,
+            },
+          }}
           className="mySwiper"
-        > {filteredPromotions.length === 0 && <div>Niestety w dniu dzisiejszym nie ma promek :( Dodaj swoją w formularzu!</div>}
+        > {filteredPromotions.length === 0 && <div className="none-promotions">Niestety w dniu dzisiejszym nie ma promek :( Dodaj swoją w formularzu!</div>}
           {filteredPromotions.map((el) => (
             <SwiperSlide key={el.id} className="promotion-element">
               {el.category.length === 0 ||
