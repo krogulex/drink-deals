@@ -73,12 +73,9 @@ const Promotions = () => {
     if (filter.length === 0) {
       return setFilteredPromotions(promotionsData);
     }
-
-    // Filter the promotionsData based on the filter array
     const filteredPromotionsData = promotionsData.filter((item) =>
-    item.category.some((category) => filter.includes(category))
-  )
-    // Pass the filtered data to the Table component
+    Array.isArray(item.category) && item.category.some((category) => filter.includes(category))
+  );
     setFilteredPromotions(filteredPromotionsData);
   }, [promotionsData, filter]);
 
@@ -88,10 +85,8 @@ const Promotions = () => {
 
     setFilter((prevFilter) => {
       if (isChecked) {
-        // If the checkbox is checked, add the category to the filter
         return [...prevFilter, categoryName];
       } else {
-        // If the checkbox is unchecked, remove the category from the filter
         return prevFilter.filter((category) => category !== categoryName);
       }
     });
@@ -101,83 +96,29 @@ const Promotions = () => {
       <div className="filter">
         <h2>Wybierz swój ulubiony trunek!</h2>
         <div className="category">
-          <Checkbox
-            name="beer"
-            label="beer"
-            onChange={handleCategoryChange}
-            checked={filter.includes("beer")}
-          ></Checkbox>
-          <span>Piwo</span>
-          <Checkbox
-            name="aperol"
-            label="aperol"
-            onChange={handleCategoryChange}
-            checked={filter.includes("aperol")}
-          ></Checkbox>
-          <span>Aperol</span>
-          <Checkbox
-            name="whisky"
-            label="whisky"
-            onChange={handleCategoryChange}
-            checked={filter.includes("whisky")}
-          ></Checkbox>
-          <span>Whisky</span>
-          <Checkbox
-            name="gin"
-            label="gin"
-            onChange={handleCategoryChange}
-            checked={filter.includes("gin")}
-          ></Checkbox>
-          <span>Gin</span>
-          <Checkbox
-            name="vodka"
-            label="vodka"
-            onChange={handleCategoryChange}
-            checked={filter.includes("vodka")}
-          ></Checkbox>
-          <span>Wódka</span>
-          <Checkbox
-            name="prosecco"
-            label="prosecco"
-            onChange={handleCategoryChange}
-            checked={filter.includes("prosecco")}
-          ></Checkbox>
-          <span>Prosecco</span>
-          <Checkbox
-            name="martini"
-            label="martini"
-            onChange={handleCategoryChange}
-            checked={filter.includes("martini")}
-          ></Checkbox>
-          <span>Martini</span>
-          <Checkbox
-            name="wine"
-            label="wine"
-            onChange={handleCategoryChange}
-            checked={filter.includes("wine")}
-          ></Checkbox>
-          <span>Wino</span>
-          <Checkbox
-            name="rum"
-            label="rum"
-            onChange={handleCategoryChange}
-            checked={filter.includes("rum")}
-          ></Checkbox>
-          <span>Rum</span>
-          <Checkbox
-            name="tequila"
-            label="tequila"
-            onChange={handleCategoryChange}
-            checked={filter.includes("tequila")}
-          ></Checkbox>
-          <span>Tequila</span>
-          <Checkbox
-            name="other"
-            label="other"
-            onChange={handleCategoryChange}
-            checked={filter.includes("other")}
-          ></Checkbox>
-          <span>Inne</span>
+          {[
+            { name: "beer", label: "beer", text: "Piwo" },
+            { name: "aperol", label: "aperol", text: "Aperol" },
+            { name: "whisky", label: "whisky", text: "Whisky" },
+            { name: "gin", label: "gin", text: "Gin" },
+            { name: "vodka", label: "vodka", text: "Wódka" },
+            { name: "prosecco", label: "prosecco", text: "Prosecco" },
+            { name: "martini", label: "martini", text: "Martini" },
+            { name: "wine", label: "wine", text: "Wino" },
+            { name: "rum", label: "rum", text: "Rum" },
+            { name: "tequila", label: "tequila", text: "Tequila" },
+            { name: "other", label: "other", text: "Inne" },
+          ].map(({ name, label, text }) => (
+            <div className="checkbox-div" key={name}>
+              <Checkbox
+                name={name}
+                label={label}
+                onChange={handleCategoryChange}
+                checked={filter.includes(name)}
+              />
+              <span>{text}</span>
+            </div>
+          ))}
         </div>
       </div>
 

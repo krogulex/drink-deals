@@ -1,11 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import * as Yup from "yup";
-import {
-  Button,
-  TextField,
-  Checkbox,
-} from "@mui/material";
+import { Button, TextField, Checkbox } from "@mui/material";
 
 import axios from "axios";
 
@@ -14,23 +9,23 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiOutlinedInput-input": {
-      color: "#fff", // Replace with your desired color
+      color: "#fff",
     },
     "& .MuiInputLabel-root.Mui-focused": {
-      color: "#fff", // Replace with your desired color
+      color: "#fff",
     },
     "& .MuiInputLabel-root": {
-      color: "#fff", // Replace with your desired color
+      color: "#fff",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#E384FF", // Replace with your desired color
+        borderColor: "#E384FF",
       },
       "&:hover fieldset": {
-        borderColor: "#E384FF", // Replace with your desired color
+        borderColor: "#E384FF",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#E384FF", // Replace with your desired color
+        borderColor: "#E384FF",
       },
     },
   },
@@ -83,20 +78,70 @@ const Form = () => {
     formik.setFieldValue("day", updatedDay);
   };
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string(),
-    allDay: Yup.boolean(),
-    allWeek: Yup.boolean(),
-    description: Yup.string(),
-    category: Yup.array(),
-    /*     startHours: Yup.string().when("allDay", (allDay, schema) => {
-      if (allDay) {
-        return schema.required("Start Hours are required");
-      }
-      return schema;
-    }), */
-    // Add more validation rules for other fields
-  });
+  const validateForm = (values) => {
+    const errors = {};
+
+    if (!values.name) {
+      errors.name = "Nazwa promocji jest wymagana";
+    }
+
+    if (!values.place) {
+      errors.place = "Miejsce jest wymagane";
+    }
+
+    if (!values.price) {
+      errors.price = "Cena jest wymagana";
+    }
+
+    if (!values.startHours && !isAllDay) {
+      errors.startHours = "Godziny startu promocji są wymagane";
+    }
+
+    if (!values.endHours && !isAllDay) {
+      errors.endHours = "Godziny końca promocji są wymagane";
+    }
+
+    if (values.category.length === 0) {
+      errors.category = "Kategoria jest wymagana";
+    }
+
+    if (values.day.length === 0 && !values.allWeek) {
+      errors.day = "Dzień promocji jest wymagany";
+    }
+
+    if (!values.link) {
+      errors.link = "Link do promocji jest wymagany";
+    }
+
+    /*     if (!values.image) {
+      errors.image = "Dowód promocji w postaci zdjęcia jest wymagany";
+    } */
+    if (values.website && !isValidURL(values.website)) {
+      errors.website = "Strona internetowa lokalu jest nieprawidłowa";
+    } else if (!values.website) {
+      errors.website = "Strona internetowa lokalu jest wymagana";
+    }
+
+    if (values.googleMaps && !isValidURL(values.googleMaps)) {
+      errors.googleMaps = "Link do map Google jest nieprawidłowy";
+    } else if (!values.googleMaps) {
+      errors.googleMaps = "Link do map Google jest wymagany";
+    }
+
+    if (values.category.length === 0) {
+      errors.category = "Wybierz przynajmniej jedną kategorię";
+    }
+    if (values.day.length === 0) {
+      errors.day = "Wybierz przynajmniej jeden dzień";
+    }
+
+    return errors;
+  };
+
+  const isValidURL = (url) => {
+    const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return pattern.test(url);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -130,29 +175,31 @@ const Form = () => {
         formData.append("category", JSON.stringify(values.category));
         formData.append("day", JSON.stringify(values.day));
         formData.append("link", values.link);
-        formData.append("image", values.image); // Append the image file to the formData
+        /*         formData.append("image", values.image); */
         formData.append("googleMaps", values.googleMaps);
         formData.append("website", values.website);
 
+        console.log(formData)
+
         const response = await axios.post(
           "http://localhost:8000/promotions",
-          formData, // Send the formData as the data for the POST request
+          formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data", // Set the content type to 'multipart/form-data'
+              "Content-Type": "multipart/form-data",
             },
           }
         );
         resetForm({ values: "" });
-        setIsAllDay(false)
-        setIsAllWeek(false)
+        setIsAllDay(false);
+        setIsAllWeek(false);
 
         console.log(response);
       } catch (error) {
         console.error(error);
       }
     },
-    validationSchema: validationSchema,
+    validate: validateForm,
   });
 
   return (
@@ -166,6 +213,8 @@ const Form = () => {
           value={formik.values.name}
           onChange={formik.handleChange}
           className={classes.root}
+          error={formik.touched.name && !!formik.errors.name}
+          helperText={formik.touched.name && formik.errors.name}
         />
         <TextField
           id="place"
@@ -174,6 +223,8 @@ const Form = () => {
           value={formik.values.place}
           onChange={formik.handleChange}
           className={classes.root}
+          error={formik.touched.place && !!formik.errors.place}
+          helperText={formik.touched.place && formik.errors.place}
         />
         <TextField
           id="price"
@@ -189,90 +240,57 @@ const Form = () => {
             }
           }}
           InputProps={{
-            endAdornment: <p>zł</p>,
+            endAdornment: (
+              <p
+                className={`${classes.root} price ${
+                  formik.touched.price && formik.errors.price
+                    ? "error-text"
+                    : ""
+                }`}
+              >
+                zł
+              </p>
+            ),
           }}
           className={`${classes.root} price`}
+          error={formik.touched.price && !!formik.errors.price}
+          helperText={formik.touched.price && formik.errors.price}
         />
         <h3>Kategoria:</h3>
-        <div className="category">
-          <Checkbox
-            name="beer"
-            label="beer"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("beer")}
-          ></Checkbox>
-          <span>Piwo</span>
-          <Checkbox
-            name="aperol"
-            label="aperol"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("aperol")}
-          ></Checkbox>{" "}
-          <span>Aperol</span>
-          <Checkbox
-            name="whisky"
-            label="whisky"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("whisky")}
-          ></Checkbox>
-          <span>Whisky</span>
-          <Checkbox
-            name="gin"
-            label="gin"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("gin")}
-          ></Checkbox>
-          <span>Gin</span>
-          <Checkbox
-            name="vodka"
-            label="vodka"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("vodka")}
-          ></Checkbox>
-          <span>Wódka</span>
-          <Checkbox
-            name="prosecco"
-            label="prosecco"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("prosecco")}
-          ></Checkbox>{" "}
-          <span>Prosecco</span>
-          <Checkbox
-            name="martini"
-            label="martini"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("martini")}
-          ></Checkbox>
-          <span>Martini</span>
-          <Checkbox
-            name="wine"
-            label="wine"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("wine")}
-          ></Checkbox>
-          <span>Wino</span>
-          <Checkbox
-            name="rum"
-            label="rum"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("rum")}
-          ></Checkbox>
-          <span>Rum</span>
-          <Checkbox
-            name="tequila"
-            label="tequila"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("tequila")}
-          ></Checkbox>
-          <span>Tequila</span>
-          <Checkbox
-            name="other"
-            label="other"
-            onChange={handleCategoryChange}
-            checked={formik.values.category.includes("other")}
-          ></Checkbox>
-          <span>Inne</span>
+        <div
+          className={`category ${
+            formik.touched.category && !!formik.errors.category
+              ? "errorCheckbox"
+              : ""
+          }`}
+        >
+          {[
+            { name: "beer", label: "beer", text: "Piwo" },
+            { name: "aperol", label: "aperol", text: "Aperol" },
+            { name: "whisky", label: "whisky", text: "Whisky" },
+            { name: "gin", label: "gin", text: "Gin" },
+            { name: "vodka", label: "vodka", text: "Wódka" },
+            { name: "prosecco", label: "prosecco", text: "Prosecco" },
+            { name: "martini", label: "martini", text: "Martini" },
+            { name: "wine", label: "wine", text: "Wino" },
+            { name: "rum", label: "rum", text: "Rum" },
+            { name: "tequila", label: "tequila", text: "Tequila" },
+            { name: "other", label: "other", text: "Inne" },
+          ].map(({ name, label, text }) => (
+            <div className="checkbox-div" key={name}>
+              <Checkbox
+                name={name}
+                label={label}
+                onChange={handleCategoryChange}
+                checked={formik.values.category.includes(label)}
+              />
+              <span>{text}</span>
+            </div>
+          ))}
         </div>
+        {formik.touched.category && !!formik.errors.category && (
+          <div className="error error-text">{formik.errors.category}</div>
+        )}
         <h3>Dzień promocji:</h3>
         <div className="promotion-day">
           <Checkbox
@@ -283,56 +301,29 @@ const Form = () => {
             onChange={handleIsAllWeek}
           />
           <span>Cały tydzień</span>
-          <Checkbox
-            name="Monday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Monday")}
-          />
-          <span> Poniedziałek</span>
-          <Checkbox
-            name="Tuesday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Tuesday")}
-          />
-          <span>Wtorek</span>
-          <Checkbox
-            name="Wednesday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Wednesday")}
-          />
-          <span>Środa</span>
-          <Checkbox
-            name="Thursday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Thursday")}
-          />
-          <span>Czwartek</span>
-          <Checkbox
-            name="Friday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Friday")}
-          />
-          <span> Piątek</span>
-          <Checkbox
-            name="Saturday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Saturday")}
-          />
-          <span> Sobota</span>
-          <Checkbox
-            name="Sunday"
-            onChange={handleDayChange}
-            disabled={isAllWeek}
-            checked={formik.values.day.includes("Sunday")}
-          />
-          <span> Niedziela</span>
+          {[
+            { name: "Monday", label: "Poniedziałek" },
+            { name: "Tuesday", label: "Wtorek" },
+            { name: "Wednesday", label: "Środa" },
+            { name: "Thursday", label: "Czwartek" },
+            { name: "Friday", label: "Piątek" },
+            { name: "Saturday", label: "Sobota" },
+            { name: "Sunday", label: "Niedziela" },
+          ].map(({ name, label }) => (
+            <div className="checkbox-div" key={name}>
+              <Checkbox
+                name={name}
+                onChange={handleDayChange}
+                disabled={isAllWeek}
+                checked={formik.values.day.includes(name)}
+              />
+              <span>{label}</span>
+            </div>
+          ))}
         </div>
+        {formik.touched.day && !!formik.errors.day && (
+          <div className="error error-text">{formik.errors.day}</div>
+        )}
         <h3>Godziny promocji:</h3>
         <div className="all-day">
           <Checkbox
@@ -344,44 +335,50 @@ const Form = () => {
           />
           <span>Cały dzień</span>
         </div>
-        <div className="hours">
-          <TextField
-            id="startHours"
-            name="startHours"
-            type="time"
-            value={formik.values.startHours}
-            disabled={isAllDay}
-            onChange={formik.handleChange}
-            className={classes.root}
-            sx={{
-              '& input[type="time"]::-webkit-calendar-picker-indicator': {
-                filter:
-                  "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
-              },
-            }}
-          />
-          <TextField
-            id="endHours"
-            name="endHours"
-            type="time"
-            value={formik.values.endHours}
-            disabled={isAllDay}
-            onChange={formik.handleChange}
-            className={classes.root}
-            sx={{
-              '& input[type="time"]::-webkit-calendar-picker-indicator': {
-                filter:
-                  "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
-              },
-            }}
-          />
-        </div>
+        {!isAllDay && (
+          <div className="hours">
+            <TextField
+              id="startHours"
+              name="startHours"
+              type="time"
+              value={formik.values.startHours}
+              disabled={isAllDay}
+              onChange={formik.handleChange}
+              className={classes.root}
+              sx={{
+                '& input[type="time"]::-webkit-calendar-picker-indicator': {
+                  filter:
+                    "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
+                },
+              }}
+              error={formik.touched.startHours && !!formik.errors.startHours}
+              helperText={formik.touched.startHours && formik.errors.startHours}
+            />
+            <TextField
+              id="endHours"
+              name="endHours"
+              type="time"
+              value={formik.values.endHours}
+              disabled={isAllDay}
+              onChange={formik.handleChange}
+              className={classes.root}
+              sx={{
+                '& input[type="time"]::-webkit-calendar-picker-indicator': {
+                  filter:
+                    "invert(65%) sepia(98%) saturate(2385%) hue-rotate(227deg) brightness(103%) contrast(101%)",
+                },
+              }}
+              error={formik.touched.endHours && !!formik.errors.endHours}
+              helperText={formik.touched.endHours && formik.errors.endHours}
+            />
+          </div>
+        )}
 
         <h3>Dodatkowe informacje:</h3>
         <TextField
           id="description"
           name="description"
-          label="Opis promocji"
+          label="Dodatkowy opis"
           multiline
           rows={3}
           value={formik.values.description}
@@ -395,6 +392,8 @@ const Form = () => {
           value={formik.values.googleMaps}
           onChange={formik.handleChange}
           className={classes.root}
+          error={formik.touched.googleMaps && !!formik.errors.googleMaps}
+          helperText={formik.touched.googleMaps && formik.errors.googleMaps}
         />
         <TextField
           id="website"
@@ -403,8 +402,10 @@ const Form = () => {
           value={formik.values.website}
           onChange={formik.handleChange}
           className={classes.root}
+          error={formik.touched.website && !!formik.errors.website}
+          helperText={formik.touched.website && formik.errors.website}
         />
-        <h3>Dowód promocji w postaci linku lub zdjęcia:</h3>
+        <h3>Dowód promocji w postaci linku:{/* lub zdjęcia: */}</h3>
         <div className="proof">
           <TextField
             id="link"
@@ -413,17 +414,21 @@ const Form = () => {
             value={formik.values.link}
             onChange={formik.handleChange}
             className={classes.root}
+            error={formik.touched.link && !!formik.errors.link}
+            helperText={formik.touched.link && formik.errors.link}
           />
-          <input
+          {/*   <input
             type="file"
             id="image"
             name="image"
             accept="image/*"
-            /*             value={formik.values.image} */
+                         value={formik.values.image} 
             onChange={(e) =>
               formik.setFieldValue("image", e.currentTarget.files[0])
             }
-          />
+            error={formik.touched.image && !!formik.errors.image}
+            helperText={formik.touched.image && formik.errors.image}
+          /> */}
         </div>
         <Button variant="contained" type="submit">
           Wyślij
@@ -434,3 +439,15 @@ const Form = () => {
 };
 
 export default Form;
+
+// To do
+
+// po wysłaniu zapytania do bazy danych wyświetlić komunikat o sprawdzeniu
+
+//zamienić checkboxy na fajne buttony
+
+// jak akceptować, żeby baza od razu nie działała, chyba przerzucę się na inny server.
+
+//Sciągać do buttonów nawiguj i strona internetowa
+
+//Dodać button, który przesyła do Api, że może być outdated

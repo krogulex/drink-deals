@@ -44,6 +44,8 @@ const Table = ({ promotionsData, date, day }) => {
     }
   }, [promotionsData, day]);
 
+  console.log(filteredPromotions)
+
   return (
     <div className="table">
       <h2 className="heading">{date}</h2>
@@ -102,12 +104,12 @@ const Table = ({ promotionsData, date, day }) => {
                     </p>
                   </div>
                   <div className="promotion-right">
-                    <a href={el.googleMap}>
+                    <a href={el.googleMaps} target="_blank" rel="noopener noreferrer">
                       <button className="promotion-button navigation-button">
                         Nawiguj
                       </button>
                     </a>
-                    <a href={el.link}>
+                    <a href={el.website} target="_blank" rel="noopener noreferrer">
                       <button className="promotion-button">Strona</button>
                     </a>
                   </div>

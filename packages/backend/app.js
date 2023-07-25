@@ -55,12 +55,14 @@ app.post("/promotions", upload.single("image"), async (req, res) => {
   try {
     console.log(req.body)
     // Extract the promotion data from the request body
-    const { name, place, price, allDay, allWeek, startHours, endHours, description, category, day, link} = req.body;
+    const { name, place, price, allDay, allWeek, startHours, endHours, description, category, day, link, website, googleMaps} = req.body;
 
     const image = req.file ? req.file.filename : null;
 
-    const isAllDay = req.body.allDay === 'true';
-    const isAllWeek = req.body.allWeek === 'true';
+    const isAllDay = allDay === 'true';
+    const isAllWeek = allWeek === 'true';
+
+    console.log(link, website)
 
     // Create a new promotion record using Knex
     const newPromotion = await Promotion.query().insert({
@@ -76,6 +78,8 @@ app.post("/promotions", upload.single("image"), async (req, res) => {
       day: JSON.stringify(day),
       link: link,
       image: image,
+      website: website,
+      googleMaps: googleMaps,
     });
 
     res.status(201).json(newPromotion);
@@ -92,3 +96,6 @@ app.listen(port, () => {
   console.log("App Name API by freely.digital");
   console.log(`App listening on port ${port}.`);
 });
+
+
+//Add other category when category array is emptyy, add alert after sending form, add validation, think about map, add acceptance of the new item, update tablet and desktop version
