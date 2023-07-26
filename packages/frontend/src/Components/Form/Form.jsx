@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Button, TextField, Checkbox } from "@mui/material";
+import { Button, TextField, Checkbox, Alert, AlertTitle } from "@mui/material";
 
 import axios from "axios";
 
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Form = () => {
   const [isAllDay, setIsAllDay] = useState(false);
   const [isAllWeek, setIsAllWeek] = useState(false);
+  const [isSent, setIsSent] = useState(null);
 
   const classes = useStyles();
 
@@ -179,8 +180,6 @@ const Form = () => {
         formData.append("googleMaps", values.googleMaps);
         formData.append("website", values.website);
 
-        console.log(formData)
-
         const response = await axios.post(
           "http://localhost:8000/promotions",
           formData,
@@ -193,10 +192,12 @@ const Form = () => {
         resetForm({ values: "" });
         setIsAllDay(false);
         setIsAllWeek(false);
+        setIsSent(true);
 
         console.log(response);
       } catch (error) {
         console.error(error);
+        setIsSent(false);
       }
     },
     validate: validateForm,
@@ -430,9 +431,23 @@ const Form = () => {
             helperText={formik.touched.image && formik.errors.image}
           /> */}
         </div>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" className="submit-btn">
           Wyślij
         </Button>
+        {isSent && (
+          <Alert severity="success" className="alert">
+            <AlertTitle>Sukces</AlertTitle>
+            Twoja promocja została przesłana do sprawdzenia.
+            <strong> Możesz przesłać kolejną!</strong>
+          </Alert>
+        )}
+        {isSent === false && (
+          <Alert severity="error" className="alert">
+            <AlertTitle>Błąd</AlertTitle>
+            Formularz nie został wysłany, pojawił się niespodziewany błąd.
+            <strong> Spróbuj ponownie później.</strong>
+          </Alert>
+        )}
       </form>
     </div>
   );
@@ -442,12 +457,12 @@ export default Form;
 
 // To do
 
-// po wysłaniu zapytania do bazy danych wyświetlić komunikat o sprawdzeniu
-
 //zamienić checkboxy na fajne buttony
 
-// jak akceptować, żeby baza od razu nie działała, chyba przerzucę się na inny server.
+// Przerzucić dane na inny server.
 
-//Sciągać do buttonów nawiguj i strona internetowa
+//uzupełnić dokumentację.
 
-//Dodać button, który przesyła do Api, że może być outdated
+//Stworzyć drugą podstronę z logowaniem podawania tylko hasła. wyświetlenie dwóch tabel to weryfikacji oraz przeterminowe dzięki temu mogę kontrolować promki. 
+
+//Zrobić filtr wyświetlaniu promocji tylko dla tych które mają verified === 1

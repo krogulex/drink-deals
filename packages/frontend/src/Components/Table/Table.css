@@ -125,6 +125,27 @@
   padding: 15px;
 }
 
+.outdated-div {
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  color: #b4b4b4;
+  margin-bottom: -10px;
+}
+
+.outdated-div button {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.alert-div {
+  display: flex;
+  justify-content: center;
+  margin-top: -10px;
+}
+
 @media only screen and (min-width: 768px) {
 }
 

@@ -53,8 +53,6 @@ app.get("/promotions", async (req, res) => {
 
 app.post("/promotions", upload.single("image"), async (req, res) => {
   try {
-    console.log(req.body)
-    // Extract the promotion data from the request body
     const { name, place, price, allDay, allWeek, startHours, endHours, description, category, day, link, website, googleMaps} = req.body;
 
     const image = req.file ? req.file.filename : null;
@@ -89,11 +87,34 @@ app.post("/promotions", upload.single("image"), async (req, res) => {
   }
 });
 
+app.put("/promotion/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // UTC time
+    const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+    const updatedRows = await knex("promotions")
+    .where({ id })
+    .update({
+      outdated: 1,
+      updated_at: currentDate,
+    });
+
+    if (updatedRows === 0) {
+      return res.status(404).json({ error: "Promotion with this ID is not found." });
+    }
+
+    res.status(200).json({message: "Promotion was updated"});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: `An error occurred while updating the promotion.` });
+  }
+});
 
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
-  console.log("App Name API by freely.digital");
   console.log(`App listening on port ${port}.`);
 });
 
