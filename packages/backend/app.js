@@ -1,27 +1,28 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
-const mysql = require("mysql");
-
+/* const mysql = require("mysql");
 const knex = require("./knex");
 const utils = require("./utils");
-
 const multer = require("multer");
-const path = require("path");
+const path = require("path"); 
+const Promotion = require("./database/models/Promotion");*/
 
 const cors = require('cors');
 
-const Promotion = require("./database/models/Promotion");
-const { all } = require("axios");
+const router = require('./routes/promotions')
 
 const app = express();
+
+const mongoose = require('mongoose');
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/storage", express.static("storage/public"));
+/* app.use("/storage", express.static("storage/public"));
 
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -34,89 +35,32 @@ const multerStorage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: multerStorage });
+const upload = multer({ storage: multerStorage }); */
 
-app.get("/promotions", async (req, res) => {
-  try {
-    const promotions = await Promotion.query();
-    promotions.map((promotion) => {
-      promotion.day = JSON.parse(promotion.day)
-    })
-    promotions.map((promotion) => {
-      promotion.category = JSON.parse(promotion.category)
-    })
-    res.json(promotions)
-  } catch (error) {
-    console.log(error);
-  }
+app.use("/promotions", router);
+
+
+const PORT = process.env.PORT || 8000;
+const DB_URI = process.env.DB_URI;
+
+const connection = mongoose.connect(DB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-app.post("/promotions", upload.single("image"), async (req, res) => {
-  try {
-    const { name, place, price, allDay, allWeek, startHours, endHours, description, category, day, link, website, googleMaps} = req.body;
-
-    const image = req.file ? req.file.filename : null;
-
-    const isAllDay = allDay === 'true';
-    const isAllWeek = allWeek === 'true';
-
-    console.log(link, website)
-
-    // Create a new promotion record using Knex
-    const newPromotion = await Promotion.query().insert({
-      name: name,
-      place: place,
-      price: price,
-      allDay: isAllDay,
-      allWeek: isAllWeek,
-      startHours: startHours,
-      endHours: endHours,
-      description: description,
-      category: JSON.stringify(category),
-      day: JSON.stringify(day),
-      link: link,
-      image: image,
-      website: website,
-      googleMaps: googleMaps,
+connection
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running. Use API on port: ${PORT}`);
     });
-
-    res.status(201).json(newPromotion);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "An error occurred while creating the promotion." });
-  }
-});
-
-app.put("/promotion/update/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    // UTC time
-    const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
-
-    const updatedRows = await knex("promotions")
-    .where({ id })
-    .update({
-      outdated: 1,
-      updated_at: currentDate,
-    });
-
-    if (updatedRows === 0) {
-      return res.status(404).json({ error: "Promotion with this ID is not found." });
-    }
-
-    res.status(200).json({message: "Promotion was updated"});
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: `An error occurred while updating the promotion.` });
-  }
-});
+  })
+  .catch((err) => {
+    console.log(`Database connection failed. Error message: ${err.message}`);
+    process.exit(1);
+  });
 
 
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
+/* app.listen(port, () => {
   console.log(`App listening on port ${port}.`);
-});
-
-
+}); */
 //Add other category when category array is emptyy, add alert after sending form, add validation, think about map, add acceptance of the new item, update tablet and desktop version

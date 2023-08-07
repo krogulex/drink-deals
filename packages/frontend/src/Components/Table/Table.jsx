@@ -94,7 +94,7 @@ const Table = ({ promotionsData, date, day }) => {
               </div>
             )}
             {filteredPromotions.map((el) => (
-              <SwiperSlide key={el.id} className="promotion-element">
+              <SwiperSlide key={el._id} className="promotion-element">
                 {el.category.length === 0 ||
                 el.category.includes("other") ||
                 el.category.length >= 2 ? (
@@ -119,7 +119,7 @@ const Table = ({ promotionsData, date, day }) => {
                       <h3>Cena: {el.price} zł</h3>
                       <p>
                         Godziny:
-                        {el.allDay === 1 || el.startHours === ""
+                        {el.allDay === true || el.startHours === ""
                           ? " Cały dzień"
                           : ` ${el.startHours} - ${el.endHours}`}
                       </p>
@@ -163,7 +163,7 @@ const Table = ({ promotionsData, date, day }) => {
                       <div>
                         <button
                           className="promotion-button"
-                          onClick={() => handleReportOutdated(el.id)}
+                          onClick={() => handleReportOutdated(el._id)}
                         >
                           Zgłoś nieaktualność promocji
                         </button>
@@ -187,7 +187,7 @@ const Table = ({ promotionsData, date, day }) => {
                         )}
                       </div>
                     )}
-                    <p>Ostatnia aktualizacja: {el.updated_at} </p>
+                    <p>Ostatnia aktualizacja: {el.updatedAt} </p>
                     </div>
                 </div>
               </SwiperSlide>
