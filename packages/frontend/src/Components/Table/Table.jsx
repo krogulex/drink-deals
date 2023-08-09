@@ -39,11 +39,21 @@ const Table = ({ promotionsData, date, day }) => {
 
   useEffect(() => {
     if (promotionsData) {
-      const filteredData = promotionsData.filter((el) => el.day.includes(day));
+      const verifiedData = promotionsData.filter((el) => el.verified);
+      const filteredData = verifiedData.filter((el) => el.day.includes(day));
+      shuffleArray(filteredData)
       setFilteredPromotions(filteredData);
       setLoading(false);
     }
   }, [promotionsData, day]);
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
   const handleReportOutdated = async (promotionId) => {
     try {
@@ -103,7 +113,7 @@ const Table = ({ promotionsData, date, day }) => {
           >
             {filteredPromotions.length === 0 && (
               <div className="none-promotions">
-                Niestety w dniu dzisiejszym nie ma promek :( Dodaj swoją w
+                Niestety w dniu dzisiejszym nie ma promek :&#40; Dodaj swoją w
                 formularzu!
               </div>
             )}
@@ -168,7 +178,7 @@ const Table = ({ promotionsData, date, day }) => {
                     </p>
                   )}
                   <div className="outdated-div">
-                    {el.outdated === 1 ? (
+                    {el.outdated === true ? (
                       <p className="outdated-text">
                         Promocja może już być nieaktualna. W celu weryfikacji skontaktuj się z
                         lokalem.
@@ -181,7 +191,7 @@ const Table = ({ promotionsData, date, day }) => {
                         >
                           Zgłoś nieaktualność promocji
                         </button>
-                        {isSentMap[el.id] && (
+                        {isSentMap[el._id] && (
                           <div className="alert-div">
                             <Alert severity="success" className="alert">
                               <AlertTitle>Sukces</AlertTitle>
@@ -190,7 +200,7 @@ const Table = ({ promotionsData, date, day }) => {
                             </Alert>
                           </div>
                         )}
-                        {isSentMap[el.id] === false && (
+                        {isSentMap[el._id] === false && (
                           <div className="alert-div">
                             <Alert severity="error" className="alert">
                               <AlertTitle>Błąd</AlertTitle>

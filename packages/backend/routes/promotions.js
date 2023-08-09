@@ -73,7 +73,8 @@ router.put("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    // UTC time
+    console.log(id)
+
     const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
 
     const updatedPromotion = await Promotion.findOneAndUpdate(

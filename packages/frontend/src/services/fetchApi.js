@@ -19,10 +19,12 @@ export const fetchPromotionsData = async () => {
 
 export const updatePromotion = async (promotionId) => {
   try {
-    await api.put(`/promotion/update/${promotionId}`, {
+
+     const update = await api.put(`/promotions/update/${promotionId}`, {
       outdated: true,
-    });
-    return Promise.resolve();
+    });   
+     console.log(update)
+    return update;
   } catch (error) {
     console.error("Error updating promotion:", error);
     return Promise.reject(error);
