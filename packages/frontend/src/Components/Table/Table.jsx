@@ -50,22 +50,36 @@ const Table = ({ promotionsData, date, day }) => {
       await updatePromotion(promotionId);
       setIsSentMap((prevIsSentMap) => ({
         ...prevIsSentMap,
-        [promotionId]: true, // Set isSent to true for the specific promotion
+        [promotionId]: true,
       }));
     } catch (error) {
       console.error("Error updating promotion:", error);
       setIsSentMap((prevIsSentMap) => ({
         ...prevIsSentMap,
-        [promotionId]: false, // Set isSent to false for the specific promotion
+        [promotionId]: false,
       }));
     }
   };
+
+  const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    const formattedDate = `${day}.${month}.${year}`;
+    
+    return formattedDate;
+}
 
   return (
     <div className="table">
       <h2 className="heading">{date}</h2>
       {loading ? (
-        <CircularProgress /> // Display the spinner while loading is true
+        <div className="loading">        
+          <CircularProgress />
+        </div>
+
       ) : (
         promotionsData && (
           <Swiper
@@ -96,8 +110,8 @@ const Table = ({ promotionsData, date, day }) => {
             {filteredPromotions.map((el) => (
               <SwiperSlide key={el._id} className="promotion-element">
                 {el.category.length === 0 ||
-                el.category.includes("other") ||
-                el.category.length >= 2 ? (
+                  el.category.includes("other") ||
+                  el.category.length >= 2 ? (
                   <img
                     src={liquorBottlesImage}
                     alt="Zdjęcie alkoholu"
@@ -187,8 +201,8 @@ const Table = ({ promotionsData, date, day }) => {
                         )}
                       </div>
                     )}
-                    <p>Ostatnia aktualizacja: {el.updatedAt} </p>
-                    </div>
+                    <p>Ostatnia aktualizacja: {formatDate(el.updatedAt)}{} </p>
+                  </div>
                 </div>
               </SwiperSlide>
             ))}

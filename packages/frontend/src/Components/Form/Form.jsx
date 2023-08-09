@@ -106,10 +106,6 @@ const Form = () => {
       errors.category = "Kategoria jest wymagana";
     }
 
-    if (values.day.length === 0 && !values.allWeek) {
-      errors.day = "Dzień promocji jest wymagany";
-    }
-
     if (!values.link) {
       errors.link = "Link do promocji jest wymagany";
     }
@@ -132,7 +128,7 @@ const Form = () => {
     if (values.category.length === 0) {
       errors.category = "Wybierz przynajmniej jedną kategorię";
     }
-    if (values.day.length === 0) {
+    if (values.day.length === 0 && !isAllWeek) {
       errors.day = "Wybierz przynajmniej jeden dzień";
     }
 
@@ -157,35 +153,18 @@ const Form = () => {
       category: [],
       day: [],
       link: "",
-      image: null,
       googleMaps: "",
       website: "",
     },
     onSubmit: async (values, { resetForm }) => {
-      // Submit form data
       try {
-        const formData = new FormData();
-        formData.append("name", values.name);
-        formData.append("place", values.place);
-        formData.append("price", values.price);
-        formData.append("allDay", values.allDay);
-        formData.append("allWeek", values.allWeek);
-        formData.append("startHours", values.startHours);
-        formData.append("endHours", values.endHours);
-        formData.append("description", values.description);
-        formData.append("category", JSON.stringify(values.category));
-        formData.append("day", JSON.stringify(values.day));
-        formData.append("link", values.link);
-        /*         formData.append("image", values.image); */
-        formData.append("googleMaps", values.googleMaps);
-        formData.append("website", values.website);
 
         const response = await axios.post(
           "http://localhost:8000/promotions",
-          formData,
+          values,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
             },
           }
         );
@@ -454,15 +433,3 @@ const Form = () => {
 };
 
 export default Form;
-
-// To do
-
-//zamienić checkboxy na fajne buttony
-
-// Przerzucić dane na inny server.
-
-//uzupełnić dokumentację.
-
-//Stworzyć drugą podstronę z logowaniem podawania tylko hasła. wyświetlenie dwóch tabel to weryfikacji oraz przeterminowe dzięki temu mogę kontrolować promki. 
-
-//Zrobić filtr wyświetlaniu promocji tylko dla tych które mają verified === 1

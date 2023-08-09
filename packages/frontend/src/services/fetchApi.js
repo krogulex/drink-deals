@@ -20,7 +20,7 @@ export const fetchPromotionsData = async () => {
 export const updatePromotion = async (promotionId) => {
   try {
     await api.put(`/promotion/update/${promotionId}`, {
-      outdated: 1,
+      outdated: true,
     });
     return Promise.resolve();
   } catch (error) {

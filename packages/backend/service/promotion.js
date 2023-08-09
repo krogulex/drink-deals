@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 // Create a Mongoose Schema for promotions
 const promotionSchema = new Schema(
   {
-    name: { type: String, required: true },
-    place: { type: String, required: true },
-    price: { type: String, required: true },
+    name: { type: String },
+    place: { type: String},
+    price: { type: String},
     allDay: { type: Boolean },
     allWeek: { type: Boolean },
     startHours: { type: String },
     endHours: { type: String },
     description: { type: String },
-    category: { type: mongoose.Schema.Types.Mixed, required: true },
-    day: { type: mongoose.Schema.Types.Mixed, required: true },
+    category: { type: mongoose.Schema.Types.Mixed },
+    day: { type: mongoose.Schema.Types.Mixed},
     website: {type: String},
     googleMaps: { type: String },
     link: { type: String },

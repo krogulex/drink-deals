@@ -21,6 +21,7 @@ router.post(
   "",
   /* upload.single("image"), */ async (req, res) => {
     try {
+
       const {
         name,
         place,
@@ -75,12 +76,14 @@ router.put("/update/:id", async (req, res) => {
     // UTC time
     const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    const updatedRows = await knex("promotions").where({ id }).update({
-      outdated: 1,
+    const updatedPromotion = await Promotion.findOneAndUpdate(
+        { _id: id },
+        {
+      outdated: true,
       updated_at: currentDate,
     });
 
-    if (updatedRows === 0) {
+    if (updatedPromotion === 0) {
       return res
         .status(404)
         .json({ error: "Promotion with this ID is not found." });
