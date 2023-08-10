@@ -1,16 +1,27 @@
 {
   "files": {
-    "main.css": "/drink-deals/static/css/main.0ed72162.css",
-    "main.js": "/drink-deals/static/js/main.aaea22de.js",
-    "static/js/787.04051c1e.chunk.js": "/drink-deals/static/js/787.04051c1e.chunk.js",
+    "main.css": "/drink-deals/static/css/main.c827b1c5.css",
+    "main.js": "/drink-deals/static/js/main.e452c631.js",
+    "static/js/651.2215b365.chunk.js": "/drink-deals/static/js/651.2215b365.chunk.js",
+    "static/media/prosecco.jpg": "/drink-deals/static/media/prosecco.ba62304fe551d841c76c.jpg",
+    "static/media/liquor-bottles.jpg": "/drink-deals/static/media/liquor-bottles.e3cfc4beb6d2366de7db.jpg",
+    "static/media/rum.jpg": "/drink-deals/static/media/rum.ef580c360b44b0868393.jpg",
+    "static/media/tequila.jpg": "/drink-deals/static/media/tequila.fb454c3abead619b346f.jpg",
+    "static/media/beer.jpg": "/drink-deals/static/media/beer.a91cac201b044adf687d.jpg",
+    "static/media/gin.jpg": "/drink-deals/static/media/gin.3eefa700ed67596cf6a0.jpg",
+    "static/media/wine.jpg": "/drink-deals/static/media/wine.51d6a8720310516ea8b6.jpg",
+    "static/media/vodka.jpg": "/drink-deals/static/media/vodka.1bd2918fc22831c9bebb.jpg",
+    "static/media/martini.jpg": "/drink-deals/static/media/martini.cc8ed4d70099cc82e7d3.jpg",
     "static/media/logo.png": "/drink-deals/static/media/logo.8ede9c5a9e71aa9d2be2.png",
+    "static/media/aperol.jpg": "/drink-deals/static/media/aperol.20687a88f7b4a9d755d2.jpg",
+    "static/media/whisky.jpg": "/drink-deals/static/media/whisky.aa261bf7c9abcfd10292.jpg",
     "index.html": "/drink-deals/index.html",
-    "main.0ed72162.css.map": "/drink-deals/static/css/main.0ed72162.css.map",
-    "main.aaea22de.js.map": "/drink-deals/static/js/main.aaea22de.js.map",
-    "787.04051c1e.chunk.js.map": "/drink-deals/static/js/787.04051c1e.chunk.js.map"
+    "main.c827b1c5.css.map": "/drink-deals/static/css/main.c827b1c5.css.map",
+    "main.e452c631.js.map": "/drink-deals/static/js/main.e452c631.js.map",
+    "651.2215b365.chunk.js.map": "/drink-deals/static/js/651.2215b365.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0ed72162.css",
-    "static/js/main.aaea22de.js"
+    "static/css/main.c827b1c5.css",
+    "static/js/main.e452c631.js"
   ]
 }
