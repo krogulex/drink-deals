@@ -104,6 +104,29 @@
 .submit-btn {
   font-weight: 600;
 }
+.custom-text-field .MuiOutlinedInput-input {
+  color: #fff;
+}
+
+.custom-text-field .MuiInputLabel-root.Mui-focused {
+  color: #fff;
+}
+
+.custom-text-field .MuiInputLabel-root {
+  color: #fff;
+}
+
+.custom-text-field .MuiOutlinedInput-root fieldset {
+  border-color: #E384FF;
+}
+
+.custom-text-field .MuiOutlinedInput-root:hover fieldset {
+  border-color: #E384FF;
+}
+
+.custom-text-field .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #E384FF;
+}
 
 @media only screen and (min-width: 768px) {
 }

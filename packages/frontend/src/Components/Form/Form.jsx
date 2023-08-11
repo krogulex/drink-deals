@@ -4,39 +4,10 @@ import { Button, TextField, Checkbox, Alert, AlertTitle } from "@mui/material";
 
 import axios from "axios";
 
-/* import { makeStyles } from "@mui/styles"; */
-
-/* const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiOutlinedInput-input": {
-      color: "#fff",
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#fff",
-    },
-    "& .MuiInputLabel-root": {
-      color: "#fff",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#E384FF",
-      },
-      "&:hover fieldset": {
-        borderColor: "#E384FF",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#E384FF",
-      },
-    },
-  },
-})); */
-
 const Form = () => {
   const [isAllDay, setIsAllDay] = useState(false);
   const [isAllWeek, setIsAllWeek] = useState(false);
   const [isSent, setIsSent] = useState(null);
-
-  const classes = "useStyles()";
 
   const handleIsAllDay = (event) => {
     setIsAllDay(event.target.checked);
@@ -192,7 +163,7 @@ const Form = () => {
           label="Nazwa promocji"
           value={formik.values.name}
           onChange={formik.handleChange}
-          className={classes.root}
+          className="custom-text-field"
           error={formik.touched.name && !!formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
         />
@@ -202,7 +173,7 @@ const Form = () => {
           label="Miejsce"
           value={formik.values.place}
           onChange={formik.handleChange}
-          className={classes.root}
+          className="custom-text-field"
           error={formik.touched.place && !!formik.errors.place}
           helperText={formik.touched.place && formik.errors.place}
         />
@@ -222,7 +193,7 @@ const Form = () => {
           InputProps={{
             endAdornment: (
               <p
-                className={`${classes.root} price ${
+                className={`custom-text-field price ${
                   formik.touched.price && formik.errors.price
                     ? "error-text"
                     : ""
@@ -232,7 +203,7 @@ const Form = () => {
               </p>
             ),
           }}
-          className={`${classes.root} price`}
+          className={`custom-text-field price`}
           error={formik.touched.price && !!formik.errors.price}
           helperText={formik.touched.price && formik.errors.price}
         />
@@ -324,7 +295,7 @@ const Form = () => {
               value={formik.values.startHours}
               disabled={isAllDay}
               onChange={formik.handleChange}
-              className={classes.root}
+              className="custom-text-field"
               sx={{
                 '& input[type="time"]::-webkit-calendar-picker-indicator': {
                   filter:
@@ -341,7 +312,7 @@ const Form = () => {
               value={formik.values.endHours}
               disabled={isAllDay}
               onChange={formik.handleChange}
-              className={classes.root}
+              className="custom-text-field"
               sx={{
                 '& input[type="time"]::-webkit-calendar-picker-indicator': {
                   filter:
@@ -363,7 +334,7 @@ const Form = () => {
           rows={3}
           value={formik.values.description}
           onChange={formik.handleChange}
-          className={classes.root}
+          className="custom-text-field"
         />
         <TextField
           id="googleMaps"
@@ -371,7 +342,7 @@ const Form = () => {
           label="Link do map googla"
           value={formik.values.googleMaps}
           onChange={formik.handleChange}
-          className={classes.root}
+          className="custom-text-field"
           error={formik.touched.googleMaps && !!formik.errors.googleMaps}
           helperText={formik.touched.googleMaps && formik.errors.googleMaps}
         />
@@ -381,7 +352,7 @@ const Form = () => {
           label="Strona internetowa lokalu"
           value={formik.values.website}
           onChange={formik.handleChange}
-          className={classes.root}
+          className="custom-text-field"
           error={formik.touched.website && !!formik.errors.website}
           helperText={formik.touched.website && formik.errors.website}
         />
@@ -393,7 +364,7 @@ const Form = () => {
             label="link do promocji"
             value={formik.values.link}
             onChange={formik.handleChange}
-            className={classes.root}
+            className="custom-text-field"
             error={formik.touched.link && !!formik.errors.link}
             helperText={formik.touched.link && formik.errors.link}
           />
