@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/drink-deals/static/css/main.d08f3920.css",
-    "main.js": "/drink-deals/static/js/main.756bbbc0.js",
+    "main.css": "/drink-deals/static/css/main.b788d33e.css",
+    "main.js": "/drink-deals/static/js/main.aa17f50b.js",
     "static/js/787.04051c1e.chunk.js": "/drink-deals/static/js/787.04051c1e.chunk.js",
-    "static/media/prosecco.jpg": "/drink-deals/static/media/prosecco.ba62304fe551d841c76c.jpg",
+    "static/media/prosecco.jpg": "/drink-deals/static/media/prosecco.1e58f07a9ba2882c0b03.jpg",
     "static/media/liquor-bottles.jpg": "/drink-deals/static/media/liquor-bottles.e3cfc4beb6d2366de7db.jpg",
     "static/media/rum.jpg": "/drink-deals/static/media/rum.ef580c360b44b0868393.jpg",
     "static/media/tequila.jpg": "/drink-deals/static/media/tequila.fb454c3abead619b346f.jpg",
@@ -16,12 +16,12 @@
     "static/media/aperol.jpg": "/drink-deals/static/media/aperol.20687a88f7b4a9d755d2.jpg",
     "static/media/whisky.jpg": "/drink-deals/static/media/whisky.aa261bf7c9abcfd10292.jpg",
     "index.html": "/drink-deals/index.html",
-    "main.d08f3920.css.map": "/drink-deals/static/css/main.d08f3920.css.map",
-    "main.756bbbc0.js.map": "/drink-deals/static/js/main.756bbbc0.js.map",
+    "main.b788d33e.css.map": "/drink-deals/static/css/main.b788d33e.css.map",
+    "main.aa17f50b.js.map": "/drink-deals/static/js/main.aa17f50b.js.map",
     "787.04051c1e.chunk.js.map": "/drink-deals/static/js/787.04051c1e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d08f3920.css",
-    "static/js/main.756bbbc0.js"
+    "static/css/main.b788d33e.css",
+    "static/js/main.aa17f50b.js"
   ]
 }
