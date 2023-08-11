@@ -5,6 +5,7 @@ import "swiper/css/scrollbar";
 import { CircularProgress } from "@mui/material";
 import { Alert, AlertTitle } from "@mui/material";
 import { updatePromotion } from "../../services/fetchApi";
+import 'react-toastify/dist/ReactToastify.css';
 
 import liquorBottlesImage from "../../images/liquor-bottles.jpg";
 import aperolImage from "../../images/aperol.jpg";

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "swiper/css";
-import {
-  Checkbox,
-} from "@mui/material";
+import { Checkbox } from "@mui/material";
+import { toast, ToastContainer } from 'react-toastify';
 
 import { fetchPromotionsData } from "../../services/fetchApi";
 
@@ -14,13 +13,16 @@ const Promotions = () => {
   const [days, setDays] = useState([]);
   const [filter, setFilter] = useState([]);
   const [filteredPromotions, setFilteredPromotions] = useState();
+  const [isLoading, setIsLoading] = useState()
 
   useEffect(() => {
     // fetching promotion data
     const fetchPromotions = () => {
+      setIsLoading(true)
       fetchPromotionsData()
         .then((data) => {
           setPromotionsData(data);
+          setIsLoading(false)
         })
         .catch((error) => {
           console.log(error);
@@ -69,12 +71,28 @@ const Promotions = () => {
   }, []);
 
   useEffect(() => {
+    if (isLoading) {
+      const timeoutId = setTimeout(() => {
+        toast.info('Przez korzystanie z darmowej wersji render.com przy dłuższej nieaktywności strony, serwer potrzebuje paru chwil to ponownego uruchomienia', {
+          position: 'top-right',
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }, 4000);
+    
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
     if (filter.length === 0) {
       return setFilteredPromotions(promotionsData);
     }
     const filteredPromotionsData = promotionsData.filter((item) =>
-    Array.isArray(item.category) && item.category.some((category) => filter.includes(category))
-  );
+      Array.isArray(item.category) && item.category.some((category) => filter.includes(category))
+    );
     setFilteredPromotions(filteredPromotionsData);
   }, [promotionsData, filter]);
 
@@ -90,8 +108,10 @@ const Promotions = () => {
       }
     });
   };
+
   return (
     <div className="promotions-content">
+      { isLoading === true && <ToastContainer />}
       <div className="filter">
         <h2>Wybierz swój ulubiony trunek!</h2>
         <div className="category">
