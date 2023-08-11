@@ -5,10 +5,14 @@
   align-items: center;
   background-color: var(--accent-color);
   color: hsl(286, 100%, 76%);
+  text-align: center;
 }
 
 .home h1 {
   animation: lights 5s 750ms linear infinite;
+}
+.home h1 span {
+  white-space: nowrap;
 }
 
 @keyframes lights {
