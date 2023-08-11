@@ -10,7 +10,6 @@ router.get("", async (req, res) => {
   try {
     const promotions = await Promotion.find({});
 
-    console.log(promotions);
     res.json(promotions);
   } catch (error) {
     console.log(error);

@@ -43,12 +43,12 @@ app.use("/promotions", router);
 const PORT = process.env.PORT || 8000;
 const DB_URI = process.env.DB_URI;
 
-const connection = mongoose.connect(DB_URI, {
+/* const connection = mongoose.connect(DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+}); */
 
-connection
+/* connection
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server running. Use API on port: ${PORT}`);
@@ -57,7 +57,21 @@ connection
   .catch((err) => {
     console.log(`Database connection failed. Error message: ${err.message}`);
     process.exit(1);
-  });
+  }); */
+  const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_CONNECT_URI)
+        console.log('Connect to MongoDb successfully')
+    } catch (error) {
+        console.log("Connect failed" + error)
+    }
+}
+
+  connectDB()
+
+  app.listen(PORT, () => {
+    console.log('Server is running on port ' + PORT)
+  })
 
 
 /* app.listen(port, () => {
