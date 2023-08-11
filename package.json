@@ -17,8 +17,8 @@
   },
   "scripts": {
     "frontend": "(cd ./packages/frontend && yarn run start)",
-    "backend": "(cd ./packages/backend && yarn run start)",
-    "server": "concurrently \"yarn run frontend\" \"yarn run backend\""
+    "backend": "(cd ./packages/backend && npm run start)",
+    "server": "concurrently \"yarn run frontend\" \"npm run backend\""
   },
   "packageManager": "yarn@3.5.0",
 
