@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/drink-deals/static/css/main.c827b1c5.css",
-    "main.js": "/drink-deals/static/js/main.e452c631.js",
-    "static/js/651.2215b365.chunk.js": "/drink-deals/static/js/651.2215b365.chunk.js",
-    "static/media/prosecco.jpg": "/drink-deals/static/media/prosecco.ba62304fe551d841c76c.jpg",
-    "static/media/liquor-bottles.jpg": "/drink-deals/static/media/liquor-bottles.e3cfc4beb6d2366de7db.jpg",
-    "static/media/rum.jpg": "/drink-deals/static/media/rum.ef580c360b44b0868393.jpg",
-    "static/media/tequila.jpg": "/drink-deals/static/media/tequila.fb454c3abead619b346f.jpg",
-    "static/media/beer.jpg": "/drink-deals/static/media/beer.a91cac201b044adf687d.jpg",
-    "static/media/gin.jpg": "/drink-deals/static/media/gin.3eefa700ed67596cf6a0.jpg",
-    "static/media/wine.jpg": "/drink-deals/static/media/wine.51d6a8720310516ea8b6.jpg",
-    "static/media/vodka.jpg": "/drink-deals/static/media/vodka.1bd2918fc22831c9bebb.jpg",
-    "static/media/martini.jpg": "/drink-deals/static/media/martini.cc8ed4d70099cc82e7d3.jpg",
-    "static/media/logo.png": "/drink-deals/static/media/logo.8ede9c5a9e71aa9d2be2.png",
-    "static/media/aperol.jpg": "/drink-deals/static/media/aperol.20687a88f7b4a9d755d2.jpg",
-    "static/media/whisky.jpg": "/drink-deals/static/media/whisky.aa261bf7c9abcfd10292.jpg",
-    "index.html": "/drink-deals/index.html",
-    "main.c827b1c5.css.map": "/drink-deals/static/css/main.c827b1c5.css.map",
-    "main.e452c631.js.map": "/drink-deals/static/js/main.e452c631.js.map",
-    "651.2215b365.chunk.js.map": "/drink-deals/static/js/651.2215b365.chunk.js.map"
+    "main.css": "/static/css/main.d08f3920.css",
+    "main.js": "/static/js/main.9d64c8a7.js",
+    "static/js/787.04051c1e.chunk.js": "/static/js/787.04051c1e.chunk.js",
+    "static/media/prosecco.jpg": "/static/media/prosecco.ba62304fe551d841c76c.jpg",
+    "static/media/liquor-bottles.jpg": "/static/media/liquor-bottles.e3cfc4beb6d2366de7db.jpg",
+    "static/media/rum.jpg": "/static/media/rum.ef580c360b44b0868393.jpg",
+    "static/media/tequila.jpg": "/static/media/tequila.fb454c3abead619b346f.jpg",
+    "static/media/beer.jpg": "/static/media/beer.a91cac201b044adf687d.jpg",
+    "static/media/gin.jpg": "/static/media/gin.3eefa700ed67596cf6a0.jpg",
+    "static/media/wine.jpg": "/static/media/wine.51d6a8720310516ea8b6.jpg",
+    "static/media/vodka.jpg": "/static/media/vodka.1bd2918fc22831c9bebb.jpg",
+    "static/media/martini.jpg": "/static/media/martini.cc8ed4d70099cc82e7d3.jpg",
+    "static/media/logo.png": "/static/media/logo.8ede9c5a9e71aa9d2be2.png",
+    "static/media/aperol.jpg": "/static/media/aperol.20687a88f7b4a9d755d2.jpg",
+    "static/media/whisky.jpg": "/static/media/whisky.aa261bf7c9abcfd10292.jpg",
+    "index.html": "/index.html",
+    "main.d08f3920.css.map": "/static/css/main.d08f3920.css.map",
+    "main.9d64c8a7.js.map": "/static/js/main.9d64c8a7.js.map",
+    "787.04051c1e.chunk.js.map": "/static/js/787.04051c1e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c827b1c5.css",
-    "static/js/main.e452c631.js"
+    "static/css/main.d08f3920.css",
+    "static/js/main.9d64c8a7.js"
   ]
 }
