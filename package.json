@@ -17,7 +17,7 @@
   },
   "scripts": {
     "frontend": "(cd ./packages/frontend && yarn run start)",
-    "backend": "(cd ./packages/backend && yarn nodemon app)",
+    "backend": "(cd ./packages/backend && yarn run start)",
     "server": "concurrently \"yarn run frontend\" \"yarn run backend\""
   },
   "packageManager": "yarn@3.5.0",
