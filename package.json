@@ -20,5 +20,10 @@
     "backend": "(cd ./packages/backend && yarn nodemon app)",
     "server": "concurrently \"yarn run frontend\" \"yarn run backend\""
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.5.0",
+
+  "engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=16.0.0 <17.0.0"
+}
 }
