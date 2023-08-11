@@ -5,22 +5,18 @@
   "description": "Template for React and Express app.",
   "author": "freely.digital",
   "license": "Proprietary software",
-  "private": true,
   "dependencies": {
     "axios": "^1.4.0",
     "concurrently": "^8.0.1",
     "date-fns": "^2.30.0",
-    "knex": "^2.4.2",
-    "mongoose": "^7.4.2",
     "mysql": "^2.18.1",
     "yup": "^1.2.0"
   },
   "scripts": {
-    "frontend": "(cd ./packages/frontend && yarn run start)",
+    "frontend": "(cd ./packages/frontend && npm run start)",
     "backend": "(cd ./packages/backend && npm run start)",
-    "server": "concurrently \"yarn run frontend\" \"npm run backend\""
+    "server": "concurrently \"npm run frontend\" \"npm run backend\""
   },
-  "packageManager": "yarn@3.5.0",
 
   "engines" : { 
     "npm" : ">=8.0.0 <9.0.0",

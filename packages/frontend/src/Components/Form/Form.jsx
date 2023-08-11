@@ -4,9 +4,9 @@ import { Button, TextField, Checkbox, Alert, AlertTitle } from "@mui/material";
 
 import axios from "axios";
 
-import { makeStyles } from "@mui/styles";
+/* import { makeStyles } from "@mui/styles"; */
 
-const useStyles = makeStyles((theme) => ({
+/* const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiOutlinedInput-input": {
       color: "#fff",
@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-}));
+})); */
 
 const Form = () => {
   const [isAllDay, setIsAllDay] = useState(false);
   const [isAllWeek, setIsAllWeek] = useState(false);
   const [isSent, setIsSent] = useState(null);
 
-  const classes = useStyles();
+  const classes = "useStyles()";
 
   const handleIsAllDay = (event) => {
     setIsAllDay(event.target.checked);
