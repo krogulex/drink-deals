@@ -1,21 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-require('dotenv').config();
+require("dotenv").config();
 
-/* const mysql = require("mysql");
-const knex = require("./knex");
-const utils = require("./utils");
-const multer = require("multer");
-const path = require("path"); 
-const Promotion = require("./database/models/Promotion");*/
+/* const multer = require("multer");
+const path = require("path"); */
 
-const cors = require('cors');
+const cors = require("cors");
 
-const router = require('./routes/promotions')
+const router = require("./routes/promotions");
 
 const app = express();
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 app.use(cors());
 
@@ -39,16 +35,16 @@ const upload = multer({ storage: multerStorage }); */
 
 app.use("/promotions", router);
 
-
 const PORT = process.env.PORT || 8000;
-const DB_URI = process.env.DB_URI;
 
-/* const connection = mongoose.connect(DB_URI, {
+/* const DB_URI = process.env.DB_URI;
+
+ const connection = mongoose.connect(DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}); */
+}); 
 
-/* connection
+ connection
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server running. Use API on port: ${PORT}`);
@@ -57,24 +53,20 @@ const DB_URI = process.env.DB_URI;
   .catch((err) => {
     console.log(`Database connection failed. Error message: ${err.message}`);
     process.exit(1);
-  }); */
-  const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_CONNECT_URI)
-        console.log('Connect to MongoDb successfully')
-    } catch (error) {
-        console.log("Connect failed" + error)
-    }
-}
+  });
+ */
 
-  connectDB()
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_CONNECT_URI);
+    console.log("Connect to MongoDb successfully");
+  } catch (error) {
+    console.log("Connect failed" + error);
+  }
+};
 
-  app.listen(PORT, () => {
-    console.log('Server is running on port ' + PORT)
-  })
+connectDB();
 
-
-/* app.listen(port, () => {
-  console.log(`App listening on port ${port}.`);
-}); */
-//Add other category when category array is emptyy, add alert after sending form, add validation, think about map, add acceptance of the new item, update tablet and desktop version
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
+});

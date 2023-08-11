@@ -9,7 +9,6 @@ const api = axios.create({
 export const fetchPromotionsData = async () => {
   try {
     const response = await api.get("/promotions");
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -23,7 +22,6 @@ export const updatePromotion = async (promotionId) => {
      const update = await api.put(`/promotions/update/${promotionId}`, {
       outdated: true,
     });   
-     console.log(update)
     return update;
   } catch (error) {
     console.error("Error updating promotion:", error);

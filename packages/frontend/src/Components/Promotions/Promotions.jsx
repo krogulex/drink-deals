@@ -29,7 +29,6 @@ const Promotions = () => {
 
     fetchPromotions();
 
-    //getting date
     const currentDate = new Date();
     const formattedDates = [];
     const formattedDays = [];

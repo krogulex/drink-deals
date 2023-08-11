@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-/* const Promotion = require("../database/models/Promotion")
-const knex = require("../knex"); */
-
 const Promotion = require("../service/promotion");
 
 router.get("", async (req, res) => {
@@ -20,7 +17,6 @@ router.post(
   "",
   /* upload.single("image"), */ async (req, res) => {
     try {
-
       const {
         name,
         place,
@@ -37,7 +33,6 @@ router.post(
         googleMaps,
       } = req.body;
 
-      // Create a new promotion record using Mongoose
       const newPromotion = await Promotion.create({
         name: name,
         place: place,
@@ -56,8 +51,6 @@ router.post(
         outdated: false,
       });
 
-      console.log(newPromotion)
-
       res.status(201).json(newPromotion);
     } catch (error) {
       console.error(error);
@@ -72,16 +65,15 @@ router.put("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    console.log(id)
-
     const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
 
     const updatedPromotion = await Promotion.findOneAndUpdate(
-        { _id: id },
-        {
-      outdated: true,
-      updated_at: currentDate,
-    });
+      { _id: id },
+      {
+        outdated: true,
+        updated_at: currentDate,
+      }
+    );
 
     if (updatedPromotion === 0) {
       return res

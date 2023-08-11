@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Create a Mongoose Schema for promotions
 const promotionSchema = new Schema(
   {
     name: { type: String },
@@ -23,7 +22,6 @@ const promotionSchema = new Schema(
   { timestamps: true } 
 );
 
-// Create a Mongoose model based on the schema
 const Promotion = mongoose.model("Promotion", promotionSchema);
 
 module.exports = Promotion;

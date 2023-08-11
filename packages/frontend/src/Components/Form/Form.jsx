@@ -184,7 +184,7 @@ const Form = () => {
           value={formik.values.price}
           onChange={(e) => {
             const input = e.target.value;
-            const regex = /^\d*$/; // Regular expression to match digits only
+            const regex = /^\d*$/;
 
             if (regex.test(input)) {
               formik.handleChange(e);
