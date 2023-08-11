@@ -1,3 +1,6 @@
+#Attention
+## Due to free render.com server after long inactivity App need few moments to restart server
+
 # Private Project "Drink Deals" - Web Application Specification
 
 ## Description
